@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 4b392b5650bdaf045bf373dca393a54c
+  productGUID: a3c2a6e6fdafea8498c3af9905a243a6
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Tank-Wars
+  productName: Tank-Wars-Unity
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -611,9 +611,9 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 20b25bcd-7eb5-46db-932b-eeca526219d6
+  cloudProjectId: 0cdff5ad-1771-43e5-b2f6-d3f7c151c590
   framebufferDepthMemorylessMode: 0
-  projectName: Tank-Wars
+  projectName: Tank-Wars-Unity
   organizationId: nytekry
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
