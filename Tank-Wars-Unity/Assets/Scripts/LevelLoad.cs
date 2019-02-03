@@ -38,7 +38,7 @@ public class LevelLoad : MonoBehaviour
     //this function will be used for quiting out of the game
     public void QuitGame()
     {
-        //Debug.Log("i am working");
+        //Debug.Log("i am working"); //button feed back for tests
         Application.Quit();
     }
     
