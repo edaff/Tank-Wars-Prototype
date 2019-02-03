@@ -14,11 +14,11 @@ public class LevelLoad : MonoBehaviour
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;   //this will get the current scene using build index
 
         //load time for next scene from start screen
-        if(currentSceneIndex == 0)
+        /*if(currentSceneIndex == 0)
         {
             StartCoroutine(WaitForTime());
         }
-
+        */
     }
 
     //coroutine for to wait for x ammount of seconds and than load next scene
@@ -38,6 +38,7 @@ public class LevelLoad : MonoBehaviour
     //this function will be used for quiting out of the game
     public void QuitGame()
     {
+        //Debug.Log("i am working");
         Application.Quit();
     }
     
@@ -47,9 +48,5 @@ public class LevelLoad : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
