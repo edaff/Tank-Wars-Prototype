@@ -17,6 +17,10 @@ public class GridNode : MonoBehaviour
         player1OnNode = false;
         player2OnNode = false;
     }
+
+    public bool playerOnNode() {
+        return (player1OnNode || player2OnNode);
+    }
 }
 
 enum Terrains {
