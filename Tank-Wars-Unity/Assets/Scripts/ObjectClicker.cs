@@ -58,8 +58,8 @@ public class ObjectClicker : MonoBehaviour {
                        		tileClicked = hit.transform.gameObject;
                           print((int)tankClicked.transform.position.x);
                           print((int)tankClicked.transform.position.z);
-                            if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
-                            {
+                            //if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
+                            //{
               				        tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
               				        tileClicked = null;
               				        tankClicked = null;
@@ -68,7 +68,7 @@ public class ObjectClicker : MonoBehaviour {
                                 playerTurn = 1;
                               }
                               print(playerTurn);
-                            }
+                            //}
                        	}
                     }
                 }
