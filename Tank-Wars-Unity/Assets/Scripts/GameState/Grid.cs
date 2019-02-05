@@ -132,21 +132,37 @@ public class Grid : MonoBehaviour
         for (int i = 0; i < movementAmount; i++) {
             switch (currentIteration) {
                 case 0:
+                    // Index out of bounds check
+                    if((currentPlayerX + i) >= gridSize) { continue; }
+
+                    // Tile check
                     if ((currentPlayerX + i) == targetNode.x && currentPlayerY == targetNode.y) {
                         return true;
                     }
                     break;
                 case 1:
+                    // Index out of bounds check
+                    if ((currentPlayerX - i) <= gridSize) { continue; }
+
+                    // Tile check
                     if ((currentPlayerX - i) == targetNode.x && currentPlayerY == targetNode.y) {
                         return true;
                     }
                     break;
                 case 2:
+                    // Index out of bounds check
+                    if ((currentPlayerY + i) >= gridSize) { continue; }
+
+                    // Tile check
                     if (currentPlayerX == targetNode.x && (currentPlayerY + i) == targetNode.y) {
                         return true;
                     }
                     break;
                 case 3:
+                    // Index out of bounds check
+                    if ((currentPlayerY - i) <= 0) { continue; }
+
+                    // Tile check
                     if (currentPlayerX == targetNode.x && (currentPlayerY - i) == targetNode.y) {
                         return true;
                     }
