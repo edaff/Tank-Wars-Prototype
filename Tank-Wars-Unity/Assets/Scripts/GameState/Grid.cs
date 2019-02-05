@@ -40,12 +40,13 @@ public class Grid : MonoBehaviour
         this.player2Y = player2Y;
 
         int mappedX = 0;
-        int mappedY = 0;
+        int mappedY = gridSize - 1;
 
         for(int i = 0; i < gridSize; i++) {
+            mappedY = gridSize - 1;
             for(int j = 0; j < gridSize; j++) {
 
-                grid[i, j] = new GridNode(i, j, terrainMap[i,j]);
+                grid[i, j] = new GridNode(i, j, terrainMap[mappedY,mappedX]);
 
                 if(player1X == i && player1Y == j) {
                     grid[i, j].player1OnNode = true;
@@ -54,6 +55,16 @@ public class Grid : MonoBehaviour
                 if(player2X == i && player2Y == j) {
                     grid[i, j].player2OnNode = true;
                 }
+
+                mappedY--;
+            }
+            mappedX++;
+        }
+
+        for(int i=0;i < gridSize; i++) {
+            Debug.Log("\n");
+            for(int j=0;j<gridSize;j++) {
+                Debug.Log(grid[i,j].terrain + " ");
             }
         }
     }
@@ -100,7 +111,7 @@ public class Grid : MonoBehaviour
 
         print("Valid Movement: " + validMovement);
         print("Valid Terrain: " + validTerrain);
-        print("Player Not on Node: " + playerNotOnNode);
+        print("Valid Node: " + playerNotOnNode);
 
         // If everything is valid, the tank can move to that location.
         // Update the state of the game

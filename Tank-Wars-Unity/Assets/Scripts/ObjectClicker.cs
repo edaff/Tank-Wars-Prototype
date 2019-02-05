@@ -16,24 +16,24 @@ public class ObjectClicker : MonoBehaviour {
     private void Start(){
       terrainMapOne = new int[,]
         {
-            {4,2,3,2,1,1,4,2,1,2},
-            {2,0,2,0,1,1,2,3,2,3},
-            {4,2,4,2,1,1,4,2,0,2},
-            {2,3,2,3,1,1,2,3,2,4},
-            {4,2,0,2,1,1,0,2,0,2},
-            {2,0,2,0,1,1,2,4,2,3},
-            {3,2,4,2,1,1,0,2,4,2},
-            {2,3,2,3,1,1,2,3,2,3},
-            {4,2,4,2,1,1,4,2,4,2},
-            {2,0,2,0,1,1,2,0,2,0}
+            {0,2,0,2,1,1,0,2,0,2},
+            {2,4,2,4,1,1,2,4,2,4},
+            {3,2,3,2,1,1,3,2,3,2},
+            {2,4,2,0,1,1,2,4,2,3},
+            {3,2,4,2,1,1,0,2,0,2},
+            {2,0,2,0,1,1,2,0,2,4},
+            {4,2,3,2,1,1,3,2,3,2},
+            {2,0,2,4,1,1,2,4,2,4},
+            {3,2,3,2,1,1,0,2,0,2},
+            {2,1,2,4,1,1,2,3,2,4}
         };
 
-      redTank = GameObject.Find("redTank");
-      blueTank = GameObject.Find("blueTank");
+        redTank = GameObject.Find("redTank");
+        blueTank = GameObject.Find("blueTank");
 
-      grid = new Grid(terrainMapOne, 4, 0, 5, 9);
+        grid = new Grid(terrainMapOne, 4, 0, 5, 9);
 
-      playerTurn = 1;
+        playerTurn = 1;
     }
 
     private void Update()
@@ -56,18 +56,16 @@ public class ObjectClicker : MonoBehaviour {
                        	else if(hit.transform.gameObject.tag == "Tile" && tankClicked != null)
                         {
                        		tileClicked = hit.transform.gameObject;
-                          print((int)tileClicked.transform.position.x);
-                          print((int)tileClicked.transform.position.z);
                             if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                             {
-              				        tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
-              				        tileClicked = null;
-              				        tankClicked = null;
-                              if(++playerTurn > 2)
-                              {
-                                playerTurn = 1;
-                              }
-                              print(playerTurn);
+              				    tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
+              				    tileClicked = null;
+              				    tankClicked = null;
+
+                                if(++playerTurn > 2)
+                                {
+                                    playerTurn = 1;
+                                }
                             }
                        	}
                     }
