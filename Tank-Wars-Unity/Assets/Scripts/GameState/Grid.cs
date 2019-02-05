@@ -95,6 +95,10 @@ public class Grid : MonoBehaviour
         // Check that a player is not on the targeted node
         playerNotOnNode = !targetNode.playerOnNode();
 
+        print("Valid Movement" + validMovement);
+        print("Valid Terrain" + validTerrain);
+        print("Player Not on Node" + playerNotOnNode);
+
         // If everything is valid, the tank can move to that location.
         // Update the state of the game
         if (validMovement && validTerrain && playerNotOnNode) {
