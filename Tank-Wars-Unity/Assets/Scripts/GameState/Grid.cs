@@ -163,7 +163,45 @@ public class Grid : MonoBehaviour
     // Return true
     // Otherwise just return false
     public bool canAttack(int player, int x, int y) {
-        return true;
+
+        bool validAttack = false;
+        bool validTerrain = false;
+        GridNode targetNode = grid[x, y];
+
+        if(player == (int)Players.Player1)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                validAttack = movementCheck(player1Attack, i, player2X, player2Y, targetNode);
+                if (validAttack) { break; }
+            }
+        }
+        else
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                validAttack = movementCheck(player2Attack, i, player1X, player1Y, targetNode);
+                if (validAttack) { break; }
+            }
+        }
+
+        if (validAttack)
+        {
+            if (targetNode.player1OnNode)
+            {
+                player1Health -= player2Attack;
+            }
+            else if (targetNode.player2OnNode)
+            {
+                player2Health -= player1Attack;
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+        else return false;
     }
 }
 
