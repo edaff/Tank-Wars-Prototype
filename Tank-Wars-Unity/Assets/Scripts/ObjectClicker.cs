@@ -56,7 +56,9 @@ public class ObjectClicker : MonoBehaviour {
                        	else if(hit.transform.gameObject.tag == "Tile" && tankClicked != null)
                         {
                        		tileClicked = hit.transform.gameObject;
-                            if(grid.canMove(playerTurn, (int)tankClicked.transform.position.x, (int)tankClicked.transform.position.z))
+                          print((int)tankClicked.transform.position.x);
+                          print((int)tankClicked.transform.position.z);
+                            if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                             {
               				        tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
               				        tileClicked = null;
