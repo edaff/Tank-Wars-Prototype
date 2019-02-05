@@ -39,6 +39,9 @@ public class Grid : MonoBehaviour
         this.player2X = player2X;
         this.player2Y = player2Y;
 
+        int mappedX = 0;
+        int mappedY = 0;
+
         for(int i = 0; i < gridSize; i++) {
             for(int j = 0; j < gridSize; j++) {
 
@@ -95,9 +98,9 @@ public class Grid : MonoBehaviour
         // Check that a player is not on the targeted node
         playerNotOnNode = !targetNode.playerOnNode();
 
-        print("Valid Movement" + validMovement);
-        print("Valid Terrain" + validTerrain);
-        print("Player Not on Node" + playerNotOnNode);
+        print("Valid Movement: " + validMovement);
+        print("Valid Terrain: " + validTerrain);
+        print("Player Not on Node: " + playerNotOnNode);
 
         // If everything is valid, the tank can move to that location.
         // Update the state of the game
@@ -133,11 +136,11 @@ public class Grid : MonoBehaviour
                                int currentPlayerX, int currentPlayerY,
                                GridNode targetNode) {
 
-        for (int i = 0; i < movementAmount; i++) {
+        for (int i = 1; i <= movementAmount; i++) {
             switch (currentIteration) {
                 case 0:
                     // Index out of bounds check
-                    if((currentPlayerX + i) >= gridSize) { continue; }
+                    if ((currentPlayerX + i) >= gridSize) { continue; }
 
                     // Tile check
                     if ((currentPlayerX + i) == targetNode.x && currentPlayerY == targetNode.y) {
@@ -146,7 +149,7 @@ public class Grid : MonoBehaviour
                     break;
                 case 1:
                     // Index out of bounds check
-                    if ((currentPlayerX - i) <= gridSize) { continue; }
+                    if ((currentPlayerX - i) <= 0) { continue; }
 
                     // Tile check
                     if ((currentPlayerX - i) == targetNode.x && currentPlayerY == targetNode.y) {

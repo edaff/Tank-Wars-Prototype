@@ -16,16 +16,16 @@ public class ObjectClicker : MonoBehaviour {
     private void Start(){
       terrainMapOne = new int[,]
         {
-            {2,1,2,4,1,1,2,3,2,4},
-            {3,2,3,2,1,1,0,2,0,2},
-            {2,0,2,4,1,1,2,4,2,4},
-            {4,2,3,2,1,1,3,2,3,2},
-            {2,0,2,0,1,1,2,0,2,4},
-            {3,2,4,2,1,1,0,2,0,2},
-            {2,4,2,0,1,1,2,4,2,3},
-            {3,2,3,2,1,1,3,2,3,2},
-            {2,4,2,4,1,1,2,4,2,4},
-            {0,2,0,2,1,1,0,2,0,2}
+            {4,2,3,2,1,1,4,2,1,2},
+            {2,0,2,0,1,1,2,3,2,3},
+            {4,2,4,2,1,1,4,2,0,2},
+            {2,3,2,3,1,1,2,3,2,4},
+            {4,2,0,2,1,1,0,2,0,2},
+            {2,0,2,0,1,1,2,4,2,3},
+            {3,2,4,2,1,1,0,2,4,2},
+            {2,3,2,3,1,1,2,3,2,3},
+            {4,2,4,2,1,1,4,2,4,2},
+            {2,0,2,0,1,1,2,0,2,0}
         };
 
       redTank = GameObject.Find("redTank");
@@ -56,8 +56,8 @@ public class ObjectClicker : MonoBehaviour {
                        	else if(hit.transform.gameObject.tag == "Tile" && tankClicked != null)
                         {
                        		tileClicked = hit.transform.gameObject;
-                          print((int)tankClicked.transform.position.x);
-                          print((int)tankClicked.transform.position.z);
+                          print((int)tileClicked.transform.position.x);
+                          print((int)tileClicked.transform.position.z);
                             if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                             {
               				        tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
