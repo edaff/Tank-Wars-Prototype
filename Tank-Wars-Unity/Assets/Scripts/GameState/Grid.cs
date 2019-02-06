@@ -39,10 +39,14 @@ public class Grid : MonoBehaviour
         this.player2X = player2X;
         this.player2Y = player2Y;
 
+        int mappedX = 0;
+        int mappedY = gridSize - 1;
+
         for(int i = 0; i < gridSize; i++) {
+            mappedY = gridSize - 1;
             for(int j = 0; j < gridSize; j++) {
 
-                grid[i, j] = new GridNode(i, j, terrainMap[i,j]);
+                grid[i, j] = new GridNode(i, j, terrainMap[mappedY,mappedX]);
 
                 if(player1X == i && player1Y == j) {
                     grid[i, j].player1OnNode = true;
@@ -51,7 +55,10 @@ public class Grid : MonoBehaviour
                 if(player2X == i && player2Y == j) {
                     grid[i, j].player2OnNode = true;
                 }
+
+                mappedY--;
             }
+            mappedX++;
         }
     }
 
@@ -129,24 +136,40 @@ public class Grid : MonoBehaviour
                                int currentPlayerX, int currentPlayerY,
                                GridNode targetNode) {
 
-        for (int i = 0; i < movementAmount; i++) {
+        for (int i = 1; i <= movementAmount; i++) {
             switch (currentIteration) {
                 case 0:
+                    // Index out of bounds check
+                    if ((currentPlayerX + i) >= gridSize) { continue; }
+
+                    // Tile check
                     if ((currentPlayerX + i) == targetNode.x && currentPlayerY == targetNode.y) {
                         return true;
                     }
                     break;
                 case 1:
+                    // Index out of bounds check
+                    if ((currentPlayerX - i) <= 0) { continue; }
+
+                    // Tile check
                     if ((currentPlayerX - i) == targetNode.x && currentPlayerY == targetNode.y) {
                         return true;
                     }
                     break;
                 case 2:
+                    // Index out of bounds check
+                    if ((currentPlayerY + i) >= gridSize) { continue; }
+
+                    // Tile check
                     if (currentPlayerX == targetNode.x && (currentPlayerY + i) == targetNode.y) {
                         return true;
                     }
                     break;
                 case 3:
+                    // Index out of bounds check
+                    if ((currentPlayerY - i) <= 0) { continue; }
+
+                    // Tile check
                     if (currentPlayerX == targetNode.x && (currentPlayerY - i) == targetNode.y) {
                         return true;
                     }
