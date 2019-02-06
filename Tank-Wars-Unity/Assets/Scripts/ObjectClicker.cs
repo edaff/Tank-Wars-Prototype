@@ -36,9 +36,15 @@ public class ObjectClicker : MonoBehaviour {
         playerTurn = 1;
     }
 
-    public void ClickTest()
+    public void GambleButton()
     {
-        Debug.Log("Button was clicked");
+        string powerUp = grid.gamble(playerTurn);
+        Debug.Log(powerUp);
+    }
+
+    public void NoGambleButton()
+    {
+        Debug.Log("Player " + playerTurn + " chose not to gamble");
     }
 
     private void Update()
