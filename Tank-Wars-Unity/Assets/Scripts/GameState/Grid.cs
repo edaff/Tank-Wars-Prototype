@@ -17,12 +17,14 @@ public class Grid : MonoBehaviour
     int player1Movement = 2;
     int player1Attack = 2;
     int player1Health = 5;
+    int player1PowerupDuration = 0;
 
     public int player2X = 5;
     public int player2Y = 9;
     int player2Movement = 2;
     int player2Attack = 2;
     int player2Health = 5;
+    int player2PowerupDuration = 0;
 
     // Constructors
     public Grid() {
@@ -120,9 +122,17 @@ public class Grid : MonoBehaviour
                 player2Y = targetNode.y;
             }
 
+            Debug.Log("Player " + player + " moves to Position: " + targetNode.x + "," + targetNode.y + " - Terrain: " + (Terrains)targetNode.terrain);
+
             return true;
         }
         else {
+
+            Debug.Log("Invalid Move! " + " - Valid Movement: " 
+                      + validMovement + " - Valid Terrain: "
+                      + validTerrain + " - Player Not On Node: " 
+                      + playerNotOnNode);
+
             return false;
         }
     }
@@ -212,19 +222,84 @@ public class Grid : MonoBehaviour
         {
             if (targetNode.player1OnNode)
             {
+                Debug.Log("Player 2 hits Player 1 for" + player2Attack + " damage! Player 1 health is now at: " + player1Health);
+
                 player1Health -= player2Attack;
             }
             else if (targetNode.player2OnNode)
             {
+                Debug.Log("Player 1 hits Player 2 for" + player1Attack + " damage! Player 2 health is now at " + player2Health);
+
                 player2Health -= player1Attack;
             }
             else
             {
+                Debug.Log("No player was hit...");
+
+                updatePowerupState(player);
+
                 return false;
             }
+
+            updatePowerupState(player);
+
             return true;
         }
         else return false;
+    }
+
+    private void updatePowerupState(int player) {
+        if (player == (int)Players.Player1 && player1PowerupDuration >= 0) {
+            player1PowerupDuration--;
+
+            if(player1PowerupDuration == 0) {
+                player1Attack--;
+            }
+        }
+
+        if(player == (int)Players.Player2 && player2PowerupDuration >= 0) {
+            player2PowerupDuration--;
+
+            if(player2PowerupDuration == 0) {
+                player2Attack--;
+            }
+        }
+    }
+
+    public string gamble(int player) {
+        System.Random randomNumberGenerator = new System.Random();
+        int gamble = randomNumberGenerator.Next(1,5);
+
+        // Decrement the health of the player who gambled
+        if(player == (int)Players.Player1) {
+            player1Health--;
+        }
+        else {
+            player2Health--;
+        }
+
+        // Return correct powerup based on the roll
+        switch(gamble) {
+            case 1:
+                if(player == (int)Players.Player1) {
+                    player1PowerupDuration = 1;
+                    player1Attack++;
+                }
+                else {
+                    player2PowerupDuration = 1;
+                    player2Attack++;
+                }
+
+                Debug.Log("Player " + player + " rolled for a Damage Boost! Attack is now: " + player1Attack);
+
+                return "Damage Boost";
+
+            default:
+
+                Debug.Log("Player " + player + " rolled for a Nothing! No powerup is obtained...");
+
+                return "Nothing! :(";
+        }
     }
 }
 
