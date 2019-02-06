@@ -301,6 +301,42 @@ public class Grid : MonoBehaviour
                 return "Nothing! :(";
         }
     }
+
+    public int getPlayerHealth(int player) {
+        if(player == (int)Players.Player1) {
+            return player1Health;
+        }
+        else {
+            return player2Health;
+        }
+    }
+
+    public int getPlayerAttack(int player) {
+        if (player == (int)Players.Player1) {
+            return player1Attack;
+        }
+        else {
+            return player2Attack;
+        }
+    }
+
+    public int getPlayerMovement(int player) {
+        if (player == (int)Players.Player1) {
+            return player1Movement;
+        }
+        else {
+            return player2Movement;
+        }
+    }
+
+    public int getPlayerPowerupDuration(int player) {
+        if (player == (int)Players.Player1) {
+            return player1PowerupDuration;
+        }
+        else {
+            return player2PowerupDuration;
+        }
+    }
 }
 
 enum Players {
