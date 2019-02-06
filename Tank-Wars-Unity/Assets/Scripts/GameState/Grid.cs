@@ -152,6 +152,8 @@ public class Grid : MonoBehaviour
                     // Index out of bounds check
                     if ((currentPlayerX + i) >= gridSize) { continue; }
 
+                    if(grid[currentPlayerX + i, currentPlayerY].terrain == (int)Terrains.Mountains) { return false; }
+
                     // Tile check
                     if ((currentPlayerX + i) == targetNode.x && currentPlayerY == targetNode.y) {
                         return true;
@@ -160,6 +162,8 @@ public class Grid : MonoBehaviour
                 case 1:
                     // Index out of bounds check
                     if ((currentPlayerX - i) <= 0) { continue; }
+
+                    if (grid[currentPlayerX - i, currentPlayerY].terrain == (int)Terrains.Mountains) { return false; }
 
                     // Tile check
                     if ((currentPlayerX - i) == targetNode.x && currentPlayerY == targetNode.y) {
@@ -170,6 +174,8 @@ public class Grid : MonoBehaviour
                     // Index out of bounds check
                     if ((currentPlayerY + i) >= gridSize) { continue; }
 
+                    if (grid[currentPlayerX, currentPlayerY + i].terrain == (int)Terrains.Mountains) { return false; }
+
                     // Tile check
                     if (currentPlayerX == targetNode.x && (currentPlayerY + i) == targetNode.y) {
                         return true;
@@ -178,6 +184,8 @@ public class Grid : MonoBehaviour
                 case 3:
                     // Index out of bounds check
                     if ((currentPlayerY - i) <= 0) { continue; }
+
+                    if (grid[currentPlayerX, currentPlayerY - i].terrain == (int)Terrains.Mountains) { return false; }
 
                     // Tile check
                     if (currentPlayerX == targetNode.x && (currentPlayerY - i) == targetNode.y) {
@@ -336,6 +344,22 @@ public class Grid : MonoBehaviour
         else {
             return player2PowerupDuration;
         }
+    }
+
+    public bool isPlayer1Dead() {
+        if (player1Health <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool isPlayer2Dead() {
+        if (player2Health <= 0) {
+            return true;
+        }
+
+        return false;
     }
 }
 
