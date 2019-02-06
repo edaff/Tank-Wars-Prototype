@@ -8,6 +8,11 @@ public class ObjectClicker : MonoBehaviour {
     public GameObject tileClicked = null;
     public float yVal = 1f;
 
+    public void ClickTest()
+    {
+        Debug.Log("Button was clicked");
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
