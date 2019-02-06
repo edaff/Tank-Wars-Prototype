@@ -60,13 +60,6 @@ public class Grid : MonoBehaviour
             }
             mappedX++;
         }
-
-        for(int i=0;i < gridSize; i++) {
-            Debug.Log("\n");
-            for(int j=0;j<gridSize;j++) {
-                Debug.Log(grid[i,j].terrain + " ");
-            }
-        }
     }
 
     // Member functions
@@ -108,10 +101,6 @@ public class Grid : MonoBehaviour
 
         // Check that a player is not on the targeted node
         playerNotOnNode = !targetNode.playerOnNode();
-
-        print("Valid Movement: " + validMovement);
-        print("Valid Terrain: " + validTerrain);
-        print("Valid Node: " + playerNotOnNode);
 
         // If everything is valid, the tank can move to that location.
         // Update the state of the game

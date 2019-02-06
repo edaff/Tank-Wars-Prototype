@@ -19,10 +19,6 @@ public class GridNode : MonoBehaviour
     }
 
     public bool playerOnNode() {
-        print("X: " + x + " Y: " + y);
-        print("Terrain: " + terrain);
-        print("Player1 On Node: " + player1OnNode);
-        print("Player2 On Node: " + player2OnNode);
         return (player1OnNode || player2OnNode);
     }
 }
