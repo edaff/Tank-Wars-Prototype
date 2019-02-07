@@ -13,6 +13,7 @@ public class ObjectClicker : MonoBehaviour {
     public Grid grid;
     public int playerTurn;
     public Transform Target;
+    public bool cameraToggle = false;
 
     private void Start(){
       terrainMapOne = new int[,]
@@ -51,7 +52,18 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
-        transform.RotateAround(Target.position, Target.transform.up, -Input.GetAxis("Mouse X") * 50);
+        if (Input.GetKeyDown(KeyCode.Z) && cameraToggle == false)
+        {
+            cameraToggle = true;
+        }
+        else if(Input.GetKeyDown(KeyCode.Z) && cameraToggle == true)
+        {
+            cameraToggle = false;
+        }
+        if (cameraToggle)
+        {
+            transform.RotateAround(Target.position, Target.transform.up, -Input.GetAxis("Mouse X") * 50);
+        }
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
