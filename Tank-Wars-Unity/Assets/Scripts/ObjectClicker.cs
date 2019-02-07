@@ -46,15 +46,21 @@ public class ObjectClicker : MonoBehaviour {
 
     public void GambleButton()
     {
-        gamblePressed = true;
-        string powerUp = grid.gamble(playerTurn);
-        Debug.Log(powerUp);
+        if(round == 3)
+        {
+            gamblePressed = true;
+            string powerUp = grid.gamble(playerTurn);
+            Debug.Log(powerUp);
+        }
     }
 
     public void NoGambleButton()
     {
-        gamblePressed = true;
-        Debug.Log("Player " + playerTurn + " chose not to gamble");
+        if(round == 3)
+        {
+            gamblePressed = true;
+            Debug.Log("Player " + playerTurn + " chose not to gamble");
+        }
     }
 
     private void Update()
@@ -71,7 +77,7 @@ public class ObjectClicker : MonoBehaviour {
         {
             transform.RotateAround(Target.position, Target.transform.up, -Input.GetAxis("Mouse X") * 50);
         }
-        
+
         if (Input.GetMouseButtonDown(0) || round == 3)
         {
             if(round == 1)
