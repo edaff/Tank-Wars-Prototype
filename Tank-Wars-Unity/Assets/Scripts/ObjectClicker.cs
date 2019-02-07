@@ -12,6 +12,7 @@ public class ObjectClicker : MonoBehaviour {
     public int[,] terrainMapOne;
     public Grid grid;
     public int playerTurn;
+    public Transform Target;
 
     private void Start(){
       terrainMapOne = new int[,]
@@ -27,6 +28,7 @@ public class ObjectClicker : MonoBehaviour {
             {3,2,3,2,1,1,0,2,0,2},
             {2,1,2,4,1,1,2,3,2,4}
         };
+        Target = GameObject.Find("Cube(0,0) (44)").transform;
 
         redTank = GameObject.Find("redTank");
         blueTank = GameObject.Find("blueTank");
@@ -49,6 +51,7 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
+        transform.RotateAround(Target.position, Target.transform.up, -Input.GetAxis("Mouse X") * 50);
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
