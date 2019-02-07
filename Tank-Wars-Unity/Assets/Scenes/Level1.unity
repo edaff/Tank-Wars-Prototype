@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -198,6 +198,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200907745111978797, guid: ccf4d08716be3dc4489661d0d867e89d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Red Tank
       objectReference: {fileID: 0}
     - target: {fileID: 5200907745112207117, guid: ccf4d08716be3dc4489661d0d867e89d,
         type: 3}
@@ -1057,6 +1062,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tank (1) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 621658290674105411, guid: 4d86de4bc2b2a3343869c8bd6104c030,
+        type: 3}
+      propertyPath: m_TagString
+      value: Blue Tank
       objectReference: {fileID: 0}
     - target: {fileID: 621658290673803363, guid: 4d86de4bc2b2a3343869c8bd6104c030,
         type: 3}
