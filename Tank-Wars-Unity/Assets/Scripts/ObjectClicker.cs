@@ -140,6 +140,8 @@ public class ObjectClicker : MonoBehaviour {
                                 {
                                     print("Bad attack");
                                 }
+                                tankClicked = null;
+                                tankClicked2 = null;
                                 round++;
                             }
                         }
