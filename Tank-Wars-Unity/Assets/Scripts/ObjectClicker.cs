@@ -275,6 +275,25 @@ public class ObjectClicker : MonoBehaviour {
                 }
             }
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if(++round > 3)
+            {
+                round = 1;
+                if(++playerTurn > 2)
+                {
+                    playerTurn = 1;
+                }
+                if (playerTurn == 1)
+                {
+                    GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                }
+                if (playerTurn == 2)
+                {
+                    GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
+                }
+            }
+        }
     }
 
     public void highlightValidMovementTiles(int player) {
