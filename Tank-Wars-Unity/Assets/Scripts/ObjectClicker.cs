@@ -138,14 +138,24 @@ public class ObjectClicker : MonoBehaviour {
                         {
                             if(hit.transform.gameObject.tag == "Red Tank")
                             {
+                                resetColors();
+
                                 tankClicked = hit.transform.gameObject;
+
+                                highlightValidAttackTiles((int)Players.Player1);
                             }
                             else if(hit.transform.gameObject.tag == "Blue Tank")
                             {
+                                resetColors();
+
                                 tankClicked2 = hit.transform.gameObject;
+
+                                highlightValidAttackTiles((int)Players.Player2);
                             }
                             if(tankClicked != null && tankClicked2 != null)
                             {
+                                resetColors();
+
                                 if(grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int) tankClicked2.transform.position.z))
                                 {
                                     print("Good attack");
@@ -235,6 +245,40 @@ public class ObjectClicker : MonoBehaviour {
                     meshRenderer.material = movementMat;
                 }
                 else if((int)tile.transform.position.x ==  currentPlayerX && (int)tile.transform.position.z == currentPlayerY){
+                    meshRenderer.material = playerMat;
+                }
+            }
+        }
+    }
+
+    public void highlightValidAttackTiles(int player) {
+        ArrayList attacks = grid.getAllValidMovementTiles(player);
+        object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
+        Material attackMat = Resources.Load("Materials/AttackHighlight", typeof(Material)) as Material;
+        Material playerMat;
+        int currentPlayerX, currentPlayerY;
+        if (player == (int)Players.Player1) {
+            playerMat = Resources.Load("Materials/RedTankColor", typeof(Material)) as Material;
+            currentPlayerX = grid.player1X;
+            currentPlayerY = grid.player1Y;
+        }
+        else {
+            playerMat = Resources.Load("Materials/BlueTankColor", typeof(Material)) as Material;
+            currentPlayerX = grid.player2X;
+            currentPlayerY = grid.player2Y;
+        }
+        Coord currentCoordinates;
+
+        foreach (object t in arrayOfTiles) {
+            GameObject tile = (GameObject)t;
+            MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
+
+            for (int i = 0; i < attacks.Count; i++) {
+                currentCoordinates = (Coord)attacks[i];
+                if (((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y)) {
+                    meshRenderer.material = attackMat;
+                }
+                else if ((int)tile.transform.position.x == currentPlayerX && (int)tile.transform.position.z == currentPlayerY) {
                     meshRenderer.material = playerMat;
                 }
             }

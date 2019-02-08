@@ -230,13 +230,13 @@ public class Grid : MonoBehaviour
         {
             if (targetNode.player1OnNode)
             {
-                Debug.Log("Player 2 hits Player 1 for" + player2Attack + " damage! Player 1 health is now at: " + player1Health);
+                Debug.Log("Player 2 hits Player 1 for " + player2Attack + " damage! Player 1 health is now at: " + player1Health);
 
                 player1Health -= player2Attack;
             }
             else if (targetNode.player2OnNode)
             {
-                Debug.Log("Player 1 hits Player 2 for" + player1Attack + " damage! Player 2 health is now at " + player2Health);
+                Debug.Log("Player 1 hits Player 2 for " + player1Attack + " damage! Player 2 health is now at " + player2Health);
 
                 player2Health -= player1Attack;
             }
@@ -298,7 +298,13 @@ public class Grid : MonoBehaviour
                     player2Attack++;
                 }
 
-                Debug.Log("Player " + player + " rolled for a Damage Boost! Attack is now: " + player1Attack);
+                if(player == (int)Players.Player1) {
+                    Debug.Log("Player 1 rolled for a Damage Boost! Attack is now: " + player1Attack);
+                }
+                else {
+                    Debug.Log("Player 2 rolled for a Damage Boost! Attack is now: " + player2Attack);
+                }
+                
 
                 return "Damage Boost";
 
@@ -444,6 +450,90 @@ public class Grid : MonoBehaviour
         }
 
         return validMovementCoordinates;
+    }
+
+    public ArrayList getAllValidAttackTiles(int player) {
+        ArrayList validAttackCoordinates = new ArrayList();
+        int attackAmount, currentPlayerX, currentPlayerY;
+
+        if (player == (int)Players.Player1) {
+            attackAmount = player1Attack;
+            currentPlayerX = player1X;
+            currentPlayerY = player1Y;
+        }
+        else {
+            attackAmount = player2Attack;
+            currentPlayerX = player2X;
+            currentPlayerY = player2Y;
+        }
+
+        bool pathBlocked = false;
+        for (int currentIteration = 0; currentIteration < 4; currentIteration++) {
+            pathBlocked = false;
+            for (int i = 1; i <= attackAmount; i++) {
+                switch (currentIteration) {
+                    case 0:
+                        // Index out of bounds check
+                        if ((currentPlayerX + i) >= gridSize) { continue; }
+
+                        if (grid[currentPlayerX + i, currentPlayerY].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validAttackCoordinates.Add(new Coord(currentPlayerX + i, currentPlayerY));
+                        }
+
+                        break;
+                    case 1:
+                        // Index out of bounds check
+                        if ((currentPlayerX - i) <= 0) { continue; }
+
+                        if (grid[currentPlayerX - i, currentPlayerY].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validAttackCoordinates.Add(new Coord(currentPlayerX - i, currentPlayerY));
+                        }
+
+                        break;
+                    case 2:
+                        // Index out of bounds check
+                        if ((currentPlayerY + i) >= gridSize) { continue; }
+
+                        if (grid[currentPlayerX, currentPlayerY + i].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validAttackCoordinates.Add(new Coord(currentPlayerX, currentPlayerY + i));
+                        }
+
+                        break;
+                    case 3:
+                        // Index out of bounds check
+                        if ((currentPlayerY - i) <= 0) { continue; }
+
+                        if (grid[currentPlayerX, currentPlayerY - i].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validAttackCoordinates.Add(new Coord(currentPlayerX, currentPlayerY - i));
+                        }
+
+                        break;
+
+                }
+            }
+        }
+
+        return validAttackCoordinates;
     }
 }
 
