@@ -210,7 +210,19 @@ public class ObjectClicker : MonoBehaviour {
     public void highlightValidMovementTiles(int player) {
         ArrayList movements = grid.getAllValidMovementTiles(player);
         object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
-        Material mat = Resources.Load("Materials/Highlighted", typeof(Material)) as Material;
+        Material movementMat = Resources.Load("Materials/MovementHighlight", typeof(Material)) as Material;
+        Material playerMat;
+        int currentPlayerX, currentPlayerY;
+        if(player == (int)Players.Player1) {
+            playerMat = Resources.Load("Materials/RedTankColor", typeof(Material)) as Material;
+            currentPlayerX = grid.player1X;
+            currentPlayerY = grid.player1Y;
+        }
+        else {
+            playerMat = Resources.Load("Materials/BlueTankColor", typeof(Material)) as Material;
+            currentPlayerX = grid.player2X;
+            currentPlayerY = grid.player2Y;
+        }
         Coord currentCoordinates;
 
         foreach (object t in arrayOfTiles) {
@@ -220,7 +232,10 @@ public class ObjectClicker : MonoBehaviour {
             for(int i = 0; i < movements.Count; i++) {
                 currentCoordinates = (Coord)movements[i];
                 if(((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y)) {
-                    meshRenderer.material = mat;
+                    meshRenderer.material = movementMat;
+                }
+                else if((int)tile.transform.position.x ==  currentPlayerX && (int)tile.transform.position.z == currentPlayerY){
+                    meshRenderer.material = playerMat;
                 }
             }
         }
