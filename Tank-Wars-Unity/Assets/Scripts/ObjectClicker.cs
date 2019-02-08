@@ -17,9 +17,12 @@ public class ObjectClicker : MonoBehaviour {
     public int playerTurn;
     public int round;
     public bool gamblePressed = false;
-    public Transform Target;
+    public Transform RedTarget;
+    public Transform BlueTarget;
     public bool cameraToggle = false;
     public string endGameText = "";
+    public bool inWater1;
+    public bool inWater2;
 
     private void Start(){
       terrainMapOne = new int[,]
@@ -36,7 +39,8 @@ public class ObjectClicker : MonoBehaviour {
             {2,1,2,4,1,1,2,3,2,4}
         };
 
-        Target = GameObject.Find("Cube(0,0) (44)").transform;
+        RedTarget = GameObject.Find("Tank Variant").transform;
+        BlueTarget = GameObject.Find("Tank (1) Variant").transform;
 
         redTank = GameObject.Find("redTank");
         blueTank = GameObject.Find("blueTank");
@@ -78,19 +82,31 @@ public class ObjectClicker : MonoBehaviour {
             SceneManager.LoadScene("GameOver");
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && cameraToggle == false)
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
         {
             cameraToggle = true;
         }
-        else if(Input.GetKeyDown(KeyCode.Z) && cameraToggle == true)
+        else if(Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
         {
             cameraToggle = false;
         }
-        if (cameraToggle)
+        if(playerTurn == 1)
         {
-            transform.RotateAround(Target.position, Target.transform.up, -Input.GetAxis("Mouse X") * 50);
+            transform.LookAt(RedTarget.position, RedTarget.up);
+            if (cameraToggle)
+            {
+                transform.RotateAround(RedTarget.position, RedTarget.up, -Input.GetAxis("Mouse X") * 50);
+            }
         }
-
+        else
+        {
+            transform.LookAt(BlueTarget.position, BlueTarget.up);
+            if (cameraToggle)
+            {
+                transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
+            }
+        }
+        
         if (Input.GetMouseButtonDown(0) || round == 3)
         {
             if(round == 1)
@@ -126,9 +142,45 @@ public class ObjectClicker : MonoBehaviour {
                                 if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                                 {
                                     tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
+                                    //if(targetNode.terrain != (int)Terrains.Mountains) {
+                                    //public GridNode getNode(int x, int y) {
+                                    if(grid.getNode((int)tileClicked.transform.position.x,(int) tileClicked.transform.position.z).terrain == (int)Terrains.Water)
+                                    {
+                                        if(playerTurn == 1)
+                                        {
+                                            inWater1 = true;
+                                        }
+                                        if(playerTurn == 2)
+                                        {
+                                            inWater2 = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(playerTurn == 1)
+                                        {
+                                            inWater1 = false;
+                                        }
+                                        if(playerTurn == 2)
+                                        {
+                                            inWater2 = false;
+                                        }
+                                    }
+                                    if(inWater1 || inWater2)
+                                    {
+                                        if(playerTurn == 1)
+                                        {
+                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn)-1);
+                                        }
+                                        if(playerTurn == 2)
+                                        {
+                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn)-1);
+                                        }
+                                    }
                                     tileClicked = null;
                                     tankClicked = null;
                                     round++;
+                                    //print(grid.getPlayerHealth(1) + " " + grid.getPlayerHealth(2));
                                 }
                             }
                         }
@@ -193,6 +245,14 @@ public class ObjectClicker : MonoBehaviour {
                     if(++playerTurn > 2)
                     {
                         playerTurn = 1;
+                    }
+                    if (playerTurn == 1)
+                    {
+                        GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                    }
+                    if (playerTurn == 2)
+                    {
+                        GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
                     }
                 }
             }
@@ -333,4 +393,10 @@ public class ObjectClicker : MonoBehaviour {
         print("Tile Colors Reset");
 
     }
+
+    public Grid getObjectClickerGrid()
+    {
+        return grid;
+    }
+    
 }
