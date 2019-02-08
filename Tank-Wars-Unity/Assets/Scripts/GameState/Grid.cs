@@ -161,7 +161,7 @@ public class Grid : MonoBehaviour
                     break;
                 case 1:
                     // Index out of bounds check
-                    if ((currentPlayerX - i) <= 0) { continue; }
+                    if ((currentPlayerX - i) < 0) { continue; }
 
                     if (grid[currentPlayerX - i, currentPlayerY].terrain == (int)Terrains.Mountains) { return false; }
 
@@ -183,7 +183,7 @@ public class Grid : MonoBehaviour
                     break;
                 case 3:
                     // Index out of bounds check
-                    if ((currentPlayerY - i) <= 0) { continue; }
+                    if ((currentPlayerY - i) < 0) { continue; }
 
                     if (grid[currentPlayerX, currentPlayerY - i].terrain == (int)Terrains.Mountains) { return false; }
 
@@ -404,7 +404,7 @@ public class Grid : MonoBehaviour
                         break;
                     case 1:
                         // Index out of bounds check
-                        if ((currentPlayerX - i) <= 0) { continue; }
+                        if ((currentPlayerX - i) < 0) { continue; }
 
                         if (grid[currentPlayerX - i, currentPlayerY].terrain == (int)Terrains.Mountains) {
                             pathBlocked = true;
@@ -432,7 +432,7 @@ public class Grid : MonoBehaviour
                         break;
                     case 3:
                         // Index out of bounds check
-                        if ((currentPlayerY - i) <= 0) { continue; }
+                        if ((currentPlayerY - i) < 0) { continue; }
 
                         if (grid[currentPlayerX, currentPlayerY - i].terrain == (int)Terrains.Mountains) {
                             pathBlocked = true;
@@ -488,7 +488,7 @@ public class Grid : MonoBehaviour
                         break;
                     case 1:
                         // Index out of bounds check
-                        if ((currentPlayerX - i) <= 0) { continue; }
+                        if ((currentPlayerX - i) < 0) { continue; }
 
                         if (grid[currentPlayerX - i, currentPlayerY].terrain == (int)Terrains.Mountains) {
                             pathBlocked = true;
@@ -516,7 +516,7 @@ public class Grid : MonoBehaviour
                         break;
                     case 3:
                         // Index out of bounds check
-                        if ((currentPlayerY - i) <= 0) { continue; }
+                        if ((currentPlayerY - i) < 0) { continue; }
 
                         if (grid[currentPlayerX, currentPlayerY - i].terrain == (int)Terrains.Mountains) {
                             pathBlocked = true;
@@ -534,6 +534,21 @@ public class Grid : MonoBehaviour
         }
 
         return validAttackCoordinates;
+    }
+
+    // Check if either player is out of health, if so
+    // return 1 for player 1 or 2 for player 2. If nobody,
+    // has won the game, return 0.
+    public int isGameOver() {
+        if (player1Health <= 0) {
+            return 1;
+        }
+        else if (player2Health <= 0) {
+            return 2;
+        }
+        else {
+            return 0;
+        }
     }
 }
 
