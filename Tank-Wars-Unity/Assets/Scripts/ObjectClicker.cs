@@ -94,10 +94,21 @@ public class ObjectClicker : MonoBehaviour {
                             print(hit.transform.gameObject);
                             if(hit.transform.gameObject.tag == "Red Tank" || hit.transform.gameObject.tag == "Blue Tank")
                             {
+                                resetColors();
+
                                 tankClicked = hit.transform.gameObject;
+
+                                if(hit.transform.gameObject.tag == "Red Tank") {
+                                    highlightValidMovementTiles((int)Players.Player1);
+                                }
+                                else {
+                                    highlightValidMovementTiles((int)Players.Player2);
+                                }
                             }
                             else if(hit.transform.gameObject.tag == "Tile" && tankClicked != null)
                             {
+                                resetColors();
+
                                 tileClicked = hit.transform.gameObject;
                                 if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                                 {
@@ -113,6 +124,9 @@ public class ObjectClicker : MonoBehaviour {
             }
             else if(round == 2)
             {
+
+                resetColors();
+
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 100.0f))
@@ -191,5 +205,61 @@ public class ObjectClicker : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void highlightValidMovementTiles(int player) {
+        ArrayList movements = grid.getAllValidMovementTiles(player);
+        object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
+        Material mat = Resources.Load("Materials/Highlighted", typeof(Material)) as Material;
+        Coord currentCoordinates;
+
+        foreach (object t in arrayOfTiles) {
+            GameObject tile = (GameObject)t;
+            MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
+
+            for(int i = 0; i < movements.Count; i++) {
+                currentCoordinates = (Coord)movements[i];
+                if(((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y)) {
+                    meshRenderer.material = mat;
+                }
+            }
+        }
+    }
+
+    public void resetColors() {
+        object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
+
+        foreach(object t in arrayOfTiles) {
+            GameObject tile = (GameObject)t;
+            int terrain = grid.grid[(int)tile.transform.position.x, (int)tile.transform.position.z].terrain;
+            MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
+            Material mat;
+
+            switch (terrain) {
+                case 0:
+                    mat = Resources.Load<Material>("Materials/Desert");
+                    meshRenderer.material = mat;
+                    break;
+                case 1:
+                    mat = Resources.Load<Material>("Materials/GrassColor");
+                    meshRenderer.material = mat;
+                    break;
+                case 2:
+                    mat = Resources.Load<Material>("Materials/WaterColor");
+                    meshRenderer.material = mat;
+                    break;
+                case 3:
+                    mat = Resources.Load<Material>("Materials/LavaColor");
+                    meshRenderer.material = mat;
+                    break;
+                case 4:
+                    mat = Resources.Load<Material>("Materials/MountainColor");
+                    meshRenderer.material = mat;
+                    break;
+            }
+        }
+
+        print("Tile Colors Reset");
+
     }
 }

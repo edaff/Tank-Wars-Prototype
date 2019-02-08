@@ -361,6 +361,108 @@ public class Grid : MonoBehaviour
 
         return false;
     }
+
+    public ArrayList getAllValidMovementTiles(int player) {
+        ArrayList validMovementCoordinates = new ArrayList();
+        int movementAmount, currentPlayerX, currentPlayerY;
+
+        if(player == (int)Players.Player1) {
+            movementAmount = player1Movement;
+            currentPlayerX = player1X;
+            currentPlayerY = player1Y;
+        }
+        else {
+            movementAmount = player2Movement;
+            currentPlayerX = player2X;
+            currentPlayerY = player2Y;
+        }
+
+        bool pathBlocked = false;
+        for (int currentIteration = 0; currentIteration < 4; currentIteration++) {
+            pathBlocked = false;
+            for (int i = 1; i <= movementAmount; i++) {
+                switch (currentIteration) {
+                    case 0:
+                        // Index out of bounds check
+                        if ((currentPlayerX + i) >= gridSize) { continue; }
+
+                        if (grid[currentPlayerX + i, currentPlayerY].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validMovementCoordinates.Add(new Coord(currentPlayerX + i, currentPlayerY));
+                        }
+
+                        break;
+                    case 1:
+                        // Index out of bounds check
+                        if ((currentPlayerX - i) <= 0) { continue; }
+
+                        if (grid[currentPlayerX - i, currentPlayerY].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validMovementCoordinates.Add(new Coord(currentPlayerX - i, currentPlayerY));
+                        }
+
+                        break;
+                    case 2:
+                        // Index out of bounds check
+                        if ((currentPlayerY + i) >= gridSize) { continue; }
+
+                        if (grid[currentPlayerX, currentPlayerY + i].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validMovementCoordinates.Add(new Coord(currentPlayerX, currentPlayerY + i));
+                        }
+
+                        break;
+                    case 3:
+                        // Index out of bounds check
+                        if ((currentPlayerY - i) <= 0) { continue; }
+
+                        if (grid[currentPlayerX, currentPlayerY - i].terrain == (int)Terrains.Mountains) {
+                            pathBlocked = true;
+                            continue;
+                        }
+
+                        if (!pathBlocked) {
+                            validMovementCoordinates.Add(new Coord(currentPlayerX, currentPlayerY - i));
+                        }
+
+                        break;
+
+                }
+            }
+        }
+
+        return validMovementCoordinates;
+    }
+}
+
+public struct Coord {
+    public int x;
+    public int y;
+
+    public Coord(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
 }
 
 enum Players {
