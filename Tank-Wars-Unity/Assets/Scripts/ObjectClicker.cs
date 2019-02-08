@@ -18,6 +18,8 @@ public class ObjectClicker : MonoBehaviour {
     public Transform RedTarget;
     public Transform BlueTarget;
     public bool cameraToggle = false;
+    public bool inWater1;
+    public bool inWater2;
 
     private void Start(){
       terrainMapOne = new int[,]
@@ -91,7 +93,7 @@ public class ObjectClicker : MonoBehaviour {
                 transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
             }
         }
-
+        
         if (Input.GetMouseButtonDown(0) || round == 3)
         {
             if(round == 1)
@@ -127,9 +129,45 @@ public class ObjectClicker : MonoBehaviour {
                                 if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                                 {
                                     tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
+                                    //if(targetNode.terrain != (int)Terrains.Mountains) {
+                                    //public GridNode getNode(int x, int y) {
+                                    if(grid.getNode((int)tileClicked.transform.position.x,(int) tileClicked.transform.position.z).terrain == (int)Terrains.Water)
+                                    {
+                                        if(playerTurn == 1)
+                                        {
+                                            inWater1 = true;
+                                        }
+                                        if(playerTurn == 2)
+                                        {
+                                            inWater2 = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(playerTurn == 1)
+                                        {
+                                            inWater1 = false;
+                                        }
+                                        if(playerTurn == 2)
+                                        {
+                                            inWater2 = false;
+                                        }
+                                    }
+                                    if(inWater1 || inWater2)
+                                    {
+                                        if(playerTurn == 1)
+                                        {
+                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn)-1);
+                                        }
+                                        if(playerTurn == 2)
+                                        {
+                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn)-1);
+                                        }
+                                    }
                                     tileClicked = null;
                                     tankClicked = null;
                                     round++;
+                                    //print(grid.getPlayerHealth(1) + " " + grid.getPlayerHealth(2));
                                 }
                             }
                         }
@@ -343,4 +381,10 @@ public class ObjectClicker : MonoBehaviour {
         print("Tile Colors Reset");
 
     }
+
+    public Grid getObjectClickerGrid()
+    {
+        return grid;
+    }
+    
 }
