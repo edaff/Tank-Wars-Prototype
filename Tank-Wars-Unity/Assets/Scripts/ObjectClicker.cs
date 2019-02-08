@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ObjectClicker : MonoBehaviour {
 
@@ -17,6 +19,7 @@ public class ObjectClicker : MonoBehaviour {
     public bool gamblePressed = false;
     public Transform Target;
     public bool cameraToggle = false;
+    public string endGameText = "";
 
     private void Start(){
       terrainMapOne = new int[,]
@@ -65,6 +68,16 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
+        // Check if it's game over
+        int victory = grid.isGameOver();
+        if (victory != 0) {
+            endGameText = "Player " + (victory == 1 ? "one" : "two") + " has won the game!";
+            Debug.Log(endGameText);
+
+            // Goto Victory Screen
+            SceneManager.LoadScene("GameOver");
+        }
+
         if (Input.GetKeyDown(KeyCode.Z) && cameraToggle == false)
         {
             cameraToggle = true;
@@ -124,7 +137,6 @@ public class ObjectClicker : MonoBehaviour {
             }
             else if(round == 2)
             {
-
                 resetColors();
 
                 RaycastHit hit;
