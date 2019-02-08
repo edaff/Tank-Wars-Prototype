@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ObjectClicker : MonoBehaviour {
 
@@ -18,6 +20,7 @@ public class ObjectClicker : MonoBehaviour {
     public Transform RedTarget;
     public Transform BlueTarget;
     public bool cameraToggle = false;
+    public string endGameText = "";
     public bool inWater1;
     public bool inWater2;
 
@@ -69,6 +72,16 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
+        // Check if it's game over
+        int victory = grid.isGameOver();
+        if (victory != 0) {
+            endGameText = "Player " + (victory == 1 ? "one" : "two") + " has won the game!";
+            Debug.Log(endGameText);
+
+            // Goto Victory Screen
+            SceneManager.LoadScene("GameOver");
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
         {
             cameraToggle = true;
@@ -176,7 +189,6 @@ public class ObjectClicker : MonoBehaviour {
             }
             else if(round == 2)
             {
-
                 resetColors();
 
                 RaycastHit hit;

@@ -8,6 +8,7 @@ TagManager:
   - Tile
   - Red Tank
   - Blue Tank
+  - VictoryMessage
   layers:
   - Default
   - TransparentFX
