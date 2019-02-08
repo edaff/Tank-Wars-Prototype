@@ -96,9 +96,17 @@ public class Grid : MonoBehaviour
         }
 
         // Check for valid terrain
-        if(targetNode.terrain != (int)Terrains.Lava &&
-           targetNode.terrain != (int)Terrains.Mountains) {
+        if(targetNode.terrain != (int)Terrains.Mountains) {
             validTerrain = true;
+        }
+
+        if(targetNode.terrain == (int)Terrains.Lava){
+            if(player == (int)Players.Player1) {
+                player1Health = 0;
+            }
+            else{
+                player1Health = 0;
+            }
         }
 
         // Check that a player is not on the targeted node
@@ -322,6 +330,15 @@ public class Grid : MonoBehaviour
         }
         else {
             return player2Health;
+        }
+    }
+
+    public void setPlayerHealth(int player, int newHealth) {
+        if(player == (int)Players.Player1) {
+            player1Health = newHealth;
+        }
+        else {
+            player2Health = newHealth;
         }
     }
 
