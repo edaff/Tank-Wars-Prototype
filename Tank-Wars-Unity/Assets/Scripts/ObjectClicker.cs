@@ -359,4 +359,10 @@ public class ObjectClicker : MonoBehaviour {
         print("Tile Colors Reset");
 
     }
+
+    public Grid getObjectClickerGrid()
+    {
+        return grid;
+    }
+    
 }
