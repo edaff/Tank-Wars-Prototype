@@ -15,7 +15,8 @@ public class ObjectClicker : MonoBehaviour {
     public int playerTurn;
     public int round;
     public bool gamblePressed = false;
-    public Transform Target;
+    public Transform RedTarget;
+    public Transform BlueTarget;
     public bool cameraToggle = false;
 
     private void Start(){
@@ -33,7 +34,8 @@ public class ObjectClicker : MonoBehaviour {
             {2,1,2,4,1,1,2,3,2,4}
         };
 
-        Target = GameObject.Find("Cube(0,0) (44)").transform;
+        RedTarget = GameObject.Find("Tank Variant").transform;
+        BlueTarget = GameObject.Find("Tank (1) Variant").transform;
 
         redTank = GameObject.Find("redTank");
         blueTank = GameObject.Find("blueTank");
@@ -65,17 +67,29 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && cameraToggle == false)
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
         {
             cameraToggle = true;
         }
-        else if(Input.GetKeyDown(KeyCode.Z) && cameraToggle == true)
+        else if(Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
         {
             cameraToggle = false;
         }
-        if (cameraToggle)
+        if(playerTurn == 1)
         {
-            transform.RotateAround(Target.position, Target.transform.up, -Input.GetAxis("Mouse X") * 50);
+            transform.LookAt(RedTarget.position, RedTarget.up);
+            if (cameraToggle)
+            {
+                transform.RotateAround(RedTarget.position, RedTarget.up, -Input.GetAxis("Mouse X") * 50);
+            }
+        }
+        else
+        {
+            transform.LookAt(BlueTarget.position, BlueTarget.up);
+            if (cameraToggle)
+            {
+                transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
+            }
         }
 
         if (Input.GetMouseButtonDown(0) || round == 3)
@@ -181,6 +195,14 @@ public class ObjectClicker : MonoBehaviour {
                     if(++playerTurn > 2)
                     {
                         playerTurn = 1;
+                    }
+                    if (playerTurn == 1)
+                    {
+                        GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                    }
+                    if (playerTurn == 2)
+                    {
+                        GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
                     }
                 }
             }
