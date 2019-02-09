@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ObjectClicker : MonoBehaviour {
 
@@ -20,6 +22,7 @@ public class ObjectClicker : MonoBehaviour {
     public Transform BlueTarget;
     public bool cameraToggle = false;
     public bool worldCamToggle = false;
+    public string endGameText = "";
     public bool inWater1;
     public bool inWater2;
 
@@ -72,6 +75,16 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
+        // Check if it's game over
+        int victory = grid.isGameOver();
+        if (victory != 0) {
+            endGameText = "Player " + (victory == 1 ? "one" : "two") + " has won the game!";
+            Debug.Log(endGameText);
+
+            // Goto Victory Screen
+            SceneManager.LoadScene("GameOver");
+        }
+
         if(playerTurn == 1)
         {
             if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
@@ -241,7 +254,6 @@ public class ObjectClicker : MonoBehaviour {
             }
             else if(round == 2)
             {
-
                 resetColors();
 
                 RaycastHit hit;
@@ -337,6 +349,25 @@ public class ObjectClicker : MonoBehaviour {
                 }
                 else if(playerTurn == 2){
                     print("Blue tank gamble phase");
+                }
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if(++round > 3)
+            {
+                round = 1;
+                if(++playerTurn > 2)
+                {
+                    playerTurn = 1;
+                }
+                if (playerTurn == 1)
+                {
+                    GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                }
+                if (playerTurn == 2)
+                {
+                    GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
                 }
             }
         }

@@ -29,13 +29,13 @@ public class GameMenu : MonoBehaviour
         {
             if (escButtonIsClicked == false)
             {
-                Debug.Log("esc key was pressed");
+                //Debug.Log("esc key was pressed");
                 escMenu.SetActive(true);
                 escButtonIsClicked = true;
             }
             else
             {
-                Debug.Log("esc key was pressed");
+                //Debug.Log("esc key was pressed");
                 escMenu.SetActive(false);
                 escButtonIsClicked = false;
                 optionMenu.SetActive(false);
