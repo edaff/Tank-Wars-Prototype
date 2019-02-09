@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4376767703412678806}
   - component: {fileID: 8135707831694194301}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Red Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,3 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   bulletHalfLife: 3
+  shootSound: {fileID: 8300000, guid: ae2dabfae6117e04fb8983ea3f7ff877, type: 3}
