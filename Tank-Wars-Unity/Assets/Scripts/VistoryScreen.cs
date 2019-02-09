@@ -31,8 +31,8 @@ public class VistoryScreen : MonoBehaviour
         checkPlayerHp = FindObjectOfType<HpTrack>();
         player1Hp = checkPlayerHp.GetPlayersHp(1);
         player2Hp = checkPlayerHp.GetPlayersHp(2);
-        Debug.Log("players 1 hp is " + player1Hp);
-        Debug.Log("players 2 hp is " + player2Hp);
+        //Debug.Log("players 1 hp is " + player1Hp);
+        //Debug.Log("players 2 hp is " + player2Hp);
 
         if (player1Hp == 0)
         {
@@ -44,7 +44,7 @@ public class VistoryScreen : MonoBehaviour
         }
         else
         {
-            Debug.Log("No one won :(");
+            //Debug.Log("No one won :(");
         }
     }
 }
