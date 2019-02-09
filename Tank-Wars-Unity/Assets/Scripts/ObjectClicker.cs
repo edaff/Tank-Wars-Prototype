@@ -269,17 +269,26 @@ public class ObjectClicker : MonoBehaviour {
                             {
                                 resetColors();
 
-                                tankClicked = hit.transform.gameObject;
-
-                                highlightValidAttackTiles((int)Players.Player1);
+                                if (playerTurn == (int)Players.Player1) {
+                                    tankClicked = hit.transform.gameObject;
+                                    highlightValidAttackTiles((int)Players.Player1);
+                                }
+                                else {
+                                    tankClicked2 = hit.transform.gameObject;
+                                }
+                                
                             }
                             else if(hit.transform.gameObject.tag == "Blue Tank")
                             {
                                 resetColors();
 
-                                tankClicked2 = hit.transform.gameObject;
-
-                                highlightValidAttackTiles((int)Players.Player2);
+                                if (playerTurn == (int)Players.Player2) {
+                                    tankClicked = hit.transform.gameObject;
+                                    highlightValidAttackTiles((int)Players.Player2);
+                                }
+                                else {
+                                    tankClicked2 = hit.transform.gameObject;
+                                }
                             }
                             if(tankClicked != null && tankClicked2 != null)
                             {

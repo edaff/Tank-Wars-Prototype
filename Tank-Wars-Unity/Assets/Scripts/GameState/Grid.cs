@@ -221,7 +221,7 @@ public class Grid : MonoBehaviour
         {
             for(int i = 0; i < 4; i++)
             {
-                validAttack = movementCheck(player1Attack, i, player2X, player2Y, targetNode);
+                validAttack = movementCheck(player1Attack, i, player1X, player1Y, targetNode);
                 if (validAttack) { break; }
             }
         }
@@ -229,27 +229,23 @@ public class Grid : MonoBehaviour
         {
             for(int i = 0; i < 4; i++)
             {
-                validAttack = movementCheck(player2Attack, i, player1X, player1Y, targetNode);
+                validAttack = movementCheck(player2Attack, i, player2X, player2Y, targetNode);
                 if (validAttack) { break; }
             }
         }
 
-        if (validAttack)
-        {
-            if (targetNode.player1OnNode)
-            {
-                Debug.Log("Player 2 hits Player 1 for " + player2Attack + " damage! Player 1 health is now at: " + player1Health);
-
-                player1Health -= player2Attack;
-            }
-            else if (targetNode.player2OnNode)
-            {
+        if (validAttack) {
+            if (player == (int)Players.Player1) {
                 Debug.Log("Player 1 hits Player 2 for " + player1Attack + " damage! Player 2 health is now at " + player2Health);
 
                 player2Health -= player1Attack;
             }
-            else
-            {
+            else if (player == (int)Players.Player2) {
+                Debug.Log("Player 2 hits Player 1 for " + player2Attack + " damage! Player 1 health is now at: " + player1Health);
+
+                player1Health -= player2Attack;
+            }
+            else {
                 Debug.Log("No player was hit...");
 
                 updatePowerupState(player);
@@ -261,7 +257,9 @@ public class Grid : MonoBehaviour
 
             return true;
         }
-        else return false;
+        else {
+            return false;
+        }
     }
 
     private void updatePowerupState(int player) {
