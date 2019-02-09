@@ -15,9 +15,11 @@ public class ObjectClicker : MonoBehaviour {
     public int playerTurn;
     public int round;
     public bool gamblePressed = false;
+    public Transform MapTarget; 
     public Transform RedTarget;
     public Transform BlueTarget;
     public bool cameraToggle = false;
+    public bool worldCamToggle = false;
     public bool inWater1;
     public bool inWater2;
 
@@ -36,6 +38,7 @@ public class ObjectClicker : MonoBehaviour {
             {2,1,2,4,1,1,2,3,2,4}
         };
 
+        MapTarget = GameObject.Find("Cube(0,0) (44)").transform;
         RedTarget = GameObject.Find("Tank Variant").transform;
         BlueTarget = GameObject.Find("Tank (1) Variant").transform;
 
@@ -69,28 +72,90 @@ public class ObjectClicker : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
-        {
-            cameraToggle = true;
-        }
-        else if(Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
-        {
-            cameraToggle = false;
-        }
         if(playerTurn == 1)
         {
-            transform.LookAt(RedTarget.position, RedTarget.up);
-            if (cameraToggle)
+            if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
             {
-                transform.RotateAround(RedTarget.position, RedTarget.up, -Input.GetAxis("Mouse X") * 50);
+                cameraToggle = true;
+                worldCamToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                transform.LookAt(RedTarget.position, RedTarget.up);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
+            {
+                cameraToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                transform.LookAt(RedTarget.position, RedTarget.up);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == false)
+            {
+                worldCamToggle = true;
+                cameraToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                transform.LookAt(RedTarget.position, RedTarget.up);
+            }
+            else if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == true)
+            {
+                worldCamToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+                transform.LookAt(RedTarget.position, RedTarget.up);
+            }
+
+            if (worldCamToggle == false)
+            {
+                transform.LookAt(RedTarget.position, RedTarget.up);
+                if (cameraToggle)
+                {
+                    transform.RotateAround(RedTarget.position, RedTarget.up, -Input.GetAxis("Mouse X") * 50);
+                }
+            }
+            else
+            {
+                transform.RotateAround(MapTarget.position, MapTarget.up, -Input.GetAxis("Mouse X") * 50);
             }
         }
         else
         {
-            transform.LookAt(BlueTarget.position, BlueTarget.up);
-            if (cameraToggle)
+            if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
             {
-                transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
+                cameraToggle = true;
+                worldCamToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
+                transform.LookAt(BlueTarget.position, BlueTarget.up);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
+            {
+                cameraToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
+                transform.LookAt(BlueTarget.position, BlueTarget.up);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == false)
+            {
+                worldCamToggle = true;
+                cameraToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
+                transform.LookAt(BlueTarget.position, BlueTarget.up);
+            }
+            else if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == true)
+            {
+                worldCamToggle = false;
+                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
+                transform.LookAt(BlueTarget.position, BlueTarget.up);
+            }
+
+            if (worldCamToggle == false)
+            {
+                transform.LookAt(BlueTarget.position, BlueTarget.up);
+                if (cameraToggle)
+                {
+                    transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
+                }
+            }
+            else
+            {
+                transform.RotateAround(MapTarget.position, MapTarget.up, -Input.GetAxis("Mouse X") * 50);
             }
         }
         
