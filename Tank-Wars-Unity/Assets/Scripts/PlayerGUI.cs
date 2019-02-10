@@ -35,32 +35,32 @@ public class PlayerGUI : MonoBehaviour
          */
 
 
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             Player1Movement();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Player1Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             Player1Gamble();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad4))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             Player2Movement();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad5))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Player2Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad6))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             Player2Gamble();
         }
