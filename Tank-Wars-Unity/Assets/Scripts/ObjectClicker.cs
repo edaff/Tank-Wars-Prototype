@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ObjectClicker : MonoBehaviour {
+public class ObjectClicker : MonoBehaviour
+{
 
     public GameObject tankClicked = null;
     public GameObject tankClicked2 = null;
@@ -17,18 +18,20 @@ public class ObjectClicker : MonoBehaviour {
     public int playerTurn;
     public int round;
     public bool gamblePressed = false;
-    public Transform MapTarget; 
+    public Transform MapTarget;
     public Transform RedTarget;
     public Transform BlueTarget;
-    public bool cameraToggle = false;
+    public bool tankCamToggle = false;
     public bool worldCamToggle = false;
+    public bool freeCamToggle = false;
     public string endGameText = "";
     public bool inWater1;
     public bool inWater2;
 
-    private void Start(){
-      terrainMapOne = new int[,]
-        {
+    private void Start()
+    {
+        terrainMapOne = new int[,]
+          {
             {0,2,0,2,1,1,0,2,0,2},
             {2,4,2,4,1,1,2,4,2,4},
             {3,2,3,2,1,1,3,2,3,2},
@@ -39,7 +42,7 @@ public class ObjectClicker : MonoBehaviour {
             {2,0,2,4,1,1,2,4,2,4},
             {3,2,3,2,1,1,0,2,0,2},
             {2,1,2,4,1,1,2,3,2,4}
-        };
+          };
 
         MapTarget = GameObject.Find("Cube(0,0) (44)").transform;
         RedTarget = GameObject.Find("Tank Variant").transform;
@@ -56,7 +59,7 @@ public class ObjectClicker : MonoBehaviour {
 
     public void GambleButton()
     {
-        if(round == 3)
+        if (round == 3)
         {
             gamblePressed = true;
             string powerUp = grid.gamble(playerTurn);
@@ -66,7 +69,7 @@ public class ObjectClicker : MonoBehaviour {
 
     public void NoGambleButton()
     {
-        if(round == 3)
+        if (round == 3)
         {
             gamblePressed = true;
             Debug.Log("Player " + playerTurn + " chose not to gamble");
@@ -77,7 +80,8 @@ public class ObjectClicker : MonoBehaviour {
     {
         // Check if it's game over
         int victory = grid.isGameOver();
-        if (victory != 0) {
+        if (victory != 0)
+        {
             endGameText = "Player " + (victory == 1 ? "one" : "two") + " has won the game!";
             Debug.Log(endGameText);
 
@@ -85,96 +89,70 @@ public class ObjectClicker : MonoBehaviour {
             SceneManager.LoadScene("GameOver");
         }
 
-        if(playerTurn == 1)
+        // Press R to reset camera position
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
-            {
-                cameraToggle = true;
-                worldCamToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
-                transform.LookAt(RedTarget.position, RedTarget.up);
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
-            {
-                cameraToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
-                transform.LookAt(RedTarget.position, RedTarget.up);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == false)
-            {
-                worldCamToggle = true;
-                cameraToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
-                transform.LookAt(RedTarget.position, RedTarget.up);
-            }
-            else if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == true)
-            {
-                worldCamToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
-                transform.LookAt(RedTarget.position, RedTarget.up);
-            }
-
-            if (worldCamToggle == false)
-            {
-                transform.LookAt(RedTarget.position, RedTarget.up);
-                if (cameraToggle)
-                {
-                    transform.RotateAround(RedTarget.position, RedTarget.up, -Input.GetAxis("Mouse X") * 50);
-                }
-            }
-            else
-            {
-                transform.RotateAround(MapTarget.position, MapTarget.up, -Input.GetAxis("Mouse X") * 50);
-            }
+            resetCamera();
         }
-        else
+
+        // Press 1 to turn on/off tanks camera
+        if (Input.GetKeyDown(KeyCode.Alpha1) && tankCamToggle == false && worldCamToggle == false && freeCamToggle == false)
         {
-            if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
-            {
-                cameraToggle = true;
-                worldCamToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
-                transform.LookAt(BlueTarget.position, BlueTarget.up);
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == true)
-            {
-                cameraToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
-                transform.LookAt(BlueTarget.position, BlueTarget.up);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == false)
-            {
-                worldCamToggle = true;
-                cameraToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
-                transform.LookAt(BlueTarget.position, BlueTarget.up);
-            }
-            else if (Input.GetKeyDown(KeyCode.Z) && worldCamToggle == true)
-            {
-                worldCamToggle = false;
-                GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
-                transform.LookAt(BlueTarget.position, BlueTarget.up);
-            }
-
-            if (worldCamToggle == false)
-            {
-                transform.LookAt(BlueTarget.position, BlueTarget.up);
-                if (cameraToggle)
-                {
-                    transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
-                }
-            }
-            else
-            {
-                transform.RotateAround(MapTarget.position, MapTarget.up, -Input.GetAxis("Mouse X") * 50);
-            }
+            tankCamToggle = true;
+            resetCamera();
         }
-        
+        else if (Input.GetKeyDown(KeyCode.Alpha1) && tankCamToggle == true)
+        {
+            tankCamToggle = false;
+        }
+
+        // Press 2 to turn on/off center map camera 
+        if (Input.GetKeyDown(KeyCode.Alpha2) && worldCamToggle == false && tankCamToggle == false && freeCamToggle == false)
+        {
+            worldCamToggle = true;
+            resetCamera();
+            transform.LookAt(MapTarget.position, MapTarget.up);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && worldCamToggle == true)
+        {
+            worldCamToggle = false;
+        }
+
+        // Press 3 to turn on/off free cam 
+        if (Input.GetKeyDown(KeyCode.Alpha3) && freeCamToggle == false && tankCamToggle == false && worldCamToggle == false)
+        {
+            freeCamToggle = true;
+            resetCamera();
+            transform.LookAt(MapTarget.position, MapTarget.up);
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha3) && freeCamToggle == true)
+        {
+            freeCamToggle = false;
+        }
+
+        if (playerTurn == 1 && tankCamToggle)
+        {
+            transform.RotateAround(RedTarget.position, RedTarget.up, -Input.GetAxis("Mouse X") * 50);
+        }
+        else if(playerTurn == 2 && tankCamToggle)
+        {
+            transform.RotateAround(BlueTarget.position, BlueTarget.up, -Input.GetAxis("Mouse X") * 50);
+        }
+
+        if (worldCamToggle)
+        {
+            transform.RotateAround(MapTarget.position, MapTarget.up, -Input.GetAxis("Mouse X") * 50);
+        }
+
+        if (freeCamToggle)
+        {
+            transform.RotateAround(MapTarget.position, MapTarget.up, -Input.GetAxis("Mouse X") * 50);
+            transform.RotateAround(MapTarget.position, MapTarget.right, -Input.GetAxis("Mouse Y") * 50);
+        }
+
         if (Input.GetMouseButtonDown(0) || round == 3)
         {
-            if(round == 1)
+            if (round == 1)
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -184,62 +162,64 @@ public class ObjectClicker : MonoBehaviour {
                     {
                         Rigidbody rb;
                         if (rb = hit.transform.GetComponent<Rigidbody>())
-                        {                        
+                        {
                             print(hit.transform.gameObject);
-                            if(hit.transform.gameObject.tag == "Red Tank" || hit.transform.gameObject.tag == "Blue Tank")
+                            if (hit.transform.gameObject.tag == "Red Tank" || hit.transform.gameObject.tag == "Blue Tank")
                             {
                                 resetColors();
 
                                 tankClicked = hit.transform.gameObject;
 
-                                if(hit.transform.gameObject.tag == "Red Tank") {
+                                if (hit.transform.gameObject.tag == "Red Tank")
+                                {
                                     highlightValidMovementTiles((int)Players.Player1);
                                 }
-                                else {
+                                else
+                                {
                                     highlightValidMovementTiles((int)Players.Player2);
                                 }
                             }
-                            else if(hit.transform.gameObject.tag == "Tile" && tankClicked != null)
+                            else if (hit.transform.gameObject.tag == "Tile" && tankClicked != null)
                             {
                                 resetColors();
 
                                 tileClicked = hit.transform.gameObject;
-                                if(grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
+                                if (grid.canMove(playerTurn, (int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z))
                                 {
-                                    tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal,tileClicked.transform.position.z);
+                                    tankClicked.transform.position = new Vector3(tileClicked.transform.position.x, yVal, tileClicked.transform.position.z);
                                     //if(targetNode.terrain != (int)Terrains.Mountains) {
                                     //public GridNode getNode(int x, int y) {
-                                    if(grid.getNode((int)tileClicked.transform.position.x,(int) tileClicked.transform.position.z).terrain == (int)Terrains.Water)
+                                    if (grid.getNode((int)tileClicked.transform.position.x, (int)tileClicked.transform.position.z).terrain == (int)Terrains.Water)
                                     {
-                                        if(playerTurn == 1)
+                                        if (playerTurn == 1)
                                         {
                                             inWater1 = true;
                                         }
-                                        if(playerTurn == 2)
+                                        if (playerTurn == 2)
                                         {
                                             inWater2 = true;
                                         }
                                     }
                                     else
                                     {
-                                        if(playerTurn == 1)
+                                        if (playerTurn == 1)
                                         {
                                             inWater1 = false;
                                         }
-                                        if(playerTurn == 2)
+                                        if (playerTurn == 2)
                                         {
                                             inWater2 = false;
                                         }
                                     }
-                                    if(inWater1 || inWater2)
+                                    if (inWater1 || inWater2)
                                     {
-                                        if(playerTurn == 1)
+                                        if (playerTurn == 1)
                                         {
-                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn)-1);
+                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn) - 1);
                                         }
-                                        if(playerTurn == 2)
+                                        if (playerTurn == 2)
                                         {
-                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn)-1);
+                                            grid.setPlayerHealth(playerTurn, grid.getPlayerHealth(playerTurn) - 1);
                                         }
                                     }
                                     tileClicked = null;
@@ -252,7 +232,7 @@ public class ObjectClicker : MonoBehaviour {
                     }
                 }
             }
-            else if(round == 2)
+            else if (round == 2)
             {
                 resetColors();
 
@@ -265,7 +245,7 @@ public class ObjectClicker : MonoBehaviour {
                         Rigidbody rb;
                         if (rb = hit.transform.GetComponent<Rigidbody>())
                         {
-                            if(hit.transform.gameObject.tag == "Red Tank")
+                            if (hit.transform.gameObject.tag == "Red Tank")
                             {
                                 resetColors();
 
@@ -273,7 +253,7 @@ public class ObjectClicker : MonoBehaviour {
 
                                 highlightValidAttackTiles((int)Players.Player1);
                             }
-                            else if(hit.transform.gameObject.tag == "Blue Tank")
+                            else if (hit.transform.gameObject.tag == "Blue Tank")
                             {
                                 resetColors();
 
@@ -281,11 +261,11 @@ public class ObjectClicker : MonoBehaviour {
 
                                 highlightValidAttackTiles((int)Players.Player2);
                             }
-                            if(tankClicked != null && tankClicked2 != null)
+                            if (tankClicked != null && tankClicked2 != null)
                             {
                                 resetColors();
 
-                                if(grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int) tankClicked2.transform.position.z))
+                                if (grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int)tankClicked2.transform.position.z))
                                 {
                                     print("Good attack");
                                 }
@@ -301,156 +281,165 @@ public class ObjectClicker : MonoBehaviour {
                     }
                 }
             }
-            else if(round == 3)
+            else if (round == 3)
             {
-                if(gamblePressed)
+                if (gamblePressed)
                 {
                     gamblePressed = false;
                     round = 1;
-                    if(++playerTurn > 2)
+                    if (++playerTurn > 2)
                     {
                         playerTurn = 1;
                     }
-                    if (playerTurn == 1)
-                    {
-                        GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
-                    }
-                    if (playerTurn == 2)
-                    {
-                        GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
-                    }
+                    resetCamera();
                 }
             }
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if(round == 1)
+            if (round == 1)
             {
-                if(playerTurn == 1){
+                if (playerTurn == 1)
+                {
                     print("Red tank move phase");
                 }
-                else if(playerTurn == 2){
+                else if (playerTurn == 2)
+                {
                     print("Blue tank move phase");
                 }
             }
-            if(round == 2)
+            if (round == 2)
             {
-                if(playerTurn == 1){
-                 print("Red tank attack phase");
+                if (playerTurn == 1)
+                {
+                    print("Red tank attack phase");
                 }
-                else if(playerTurn == 2){
-                  print("Blue tank attack phase");
+                else if (playerTurn == 2)
+                {
+                    print("Blue tank attack phase");
                 }
             }
-            if(round == 3)
+            if (round == 3)
             {
-                if(playerTurn == 1){
+                if (playerTurn == 1)
+                {
                     print("Red tank gamble phase");
                 }
-                else if(playerTurn == 2){
+                else if (playerTurn == 2)
+                {
                     print("Blue tank gamble phase");
                 }
             }
         }
         if (Input.GetMouseButtonDown(1))
         {
-            if(++round > 3)
+            if (++round > 3)
             {
                 round = 1;
-                if(++playerTurn > 2)
+                if (++playerTurn > 2)
                 {
                     playerTurn = 1;
                 }
-                if (playerTurn == 1)
-                {
-                    GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
-                }
-                if (playerTurn == 2)
-                {
-                    GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
-                }
+                resetCamera();
             }
         }
     }
 
-    public void highlightValidMovementTiles(int player) {
+    public void highlightValidMovementTiles(int player)
+    {
         ArrayList movements = grid.getAllValidMovementTiles(player);
         object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
         Material movementMat = Resources.Load("Materials/MovementHighlight", typeof(Material)) as Material;
         Material playerMat;
         int currentPlayerX, currentPlayerY;
-        if(player == (int)Players.Player1) {
+        if (player == (int)Players.Player1)
+        {
             playerMat = Resources.Load("Materials/RedTankColor", typeof(Material)) as Material;
             currentPlayerX = grid.player1X;
             currentPlayerY = grid.player1Y;
         }
-        else {
+        else
+        {
             playerMat = Resources.Load("Materials/BlueTankColor", typeof(Material)) as Material;
             currentPlayerX = grid.player2X;
             currentPlayerY = grid.player2Y;
         }
         Coord currentCoordinates;
 
-        foreach (object t in arrayOfTiles) {
+        foreach (object t in arrayOfTiles)
+        {
             GameObject tile = (GameObject)t;
             MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
 
-            for(int i = 0; i < movements.Count; i++) {
+            for (int i = 0; i < movements.Count; i++)
+            {
                 currentCoordinates = (Coord)movements[i];
-                if(((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y)) {
+                if (((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y))
+                {
                     meshRenderer.material = movementMat;
                 }
-                else if((int)tile.transform.position.x ==  currentPlayerX && (int)tile.transform.position.z == currentPlayerY){
+                else if ((int)tile.transform.position.x == currentPlayerX && (int)tile.transform.position.z == currentPlayerY)
+                {
                     meshRenderer.material = playerMat;
                 }
             }
         }
     }
 
-    public void highlightValidAttackTiles(int player) {
+    public void highlightValidAttackTiles(int player)
+    {
         ArrayList attacks = grid.getAllValidMovementTiles(player);
         object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
         Material attackMat = Resources.Load("Materials/AttackHighlight", typeof(Material)) as Material;
         Material playerMat;
         int currentPlayerX, currentPlayerY;
-        if (player == (int)Players.Player1) {
+        if (player == (int)Players.Player1)
+        {
             playerMat = Resources.Load("Materials/RedTankColor", typeof(Material)) as Material;
             currentPlayerX = grid.player1X;
             currentPlayerY = grid.player1Y;
         }
-        else {
+        else
+        {
             playerMat = Resources.Load("Materials/BlueTankColor", typeof(Material)) as Material;
             currentPlayerX = grid.player2X;
             currentPlayerY = grid.player2Y;
         }
         Coord currentCoordinates;
 
-        foreach (object t in arrayOfTiles) {
+        foreach (object t in arrayOfTiles)
+        {
             GameObject tile = (GameObject)t;
             MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
 
-            for (int i = 0; i < attacks.Count; i++) {
+            for (int i = 0; i < attacks.Count; i++)
+            {
                 currentCoordinates = (Coord)attacks[i];
-                if (((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y)) {
+                if (((int)tile.transform.position.x == currentCoordinates.x) && ((int)tile.transform.position.z == currentCoordinates.y))
+                {
                     meshRenderer.material = attackMat;
                 }
-                else if ((int)tile.transform.position.x == currentPlayerX && (int)tile.transform.position.z == currentPlayerY) {
+                else if ((int)tile.transform.position.x == currentPlayerX && (int)tile.transform.position.z == currentPlayerY)
+                {
                     meshRenderer.material = playerMat;
                 }
             }
         }
     }
 
-    public void resetColors() {
+    public void resetColors()
+    {
         object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
 
-        foreach(object t in arrayOfTiles) {
+        foreach (object t in arrayOfTiles)
+        {
             GameObject tile = (GameObject)t;
             int terrain = grid.grid[(int)tile.transform.position.x, (int)tile.transform.position.z].terrain;
             MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
             Material mat;
 
-            switch (terrain) {
+            switch (terrain)
+            {
                 case 0:
                     mat = Resources.Load<Material>("Materials/Desert");
                     meshRenderer.material = mat;
@@ -482,5 +471,19 @@ public class ObjectClicker : MonoBehaviour {
     {
         return grid;
     }
-    
+
+    public void resetCamera()
+    {
+        if(playerTurn == 1)
+        {
+            GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, -5.88f);
+            transform.LookAt(RedTarget.position, RedTarget.up);
+        }
+        else
+        {
+            GameObject.Find("Main Camera").transform.position = new Vector3(4.29f, 4.63f, 14.88f);
+            transform.LookAt(BlueTarget.position, BlueTarget.up);
+        }
+    }
+
 }
