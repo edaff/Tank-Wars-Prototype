@@ -9,17 +9,17 @@ public class PlayerGUI : MonoBehaviour
     [SerializeField] GameObject p1MovementMenu;
     [SerializeField] GameObject p1AttackMenu;
     [SerializeField] GameObject p1GambleMenu;
-    bool p1Move = true;
-    bool p1Attack = true;
-    bool p1Gamble = true;
+    public bool p1Move = true;
+    public bool p1Attack = true;
+    public bool p1Gamble = true;
 
     [Header("Player 2 GUI variable")]
     [SerializeField] GameObject p2MovementMenu;
     [SerializeField] GameObject p2AttackMenu;
     [SerializeField] GameObject p2GambleMenu;
-    bool p2Move = true;
-    bool p2Attack = true;
-    bool p2Gamble = true;
+    public bool p2Move = true;
+    public bool p2Attack = true;
+    public bool p2Gamble = true;
     
 
     void Start()

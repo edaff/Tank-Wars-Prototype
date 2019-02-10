@@ -91,6 +91,42 @@ public class ObjectClicker : MonoBehaviour {
             SceneManager.LoadScene("GameOver");
         }
 
+        if(round == 1) {
+            // Display GUI for Player Movement
+            if (playerTurn == (int)Players.Player1 && theGUI.p1Move) {
+                if (!theGUI.p2Gamble) {
+                    theGUI.Player2Gamble();
+                }
+                theGUI.Player1Movement();
+            }
+            else if(playerTurn == (int)Players.Player2 && theGUI.p2Move){
+                theGUI.Player1Gamble();
+                theGUI.Player2Movement();
+            }
+        }
+        else if(round == 2) {
+            // Display GUI for player attack
+            if (playerTurn == (int)Players.Player1 && theGUI.p1Attack) {
+                theGUI.Player1Movement();
+                theGUI.Player1Attack();
+            }
+            else if(playerTurn == (int)Players.Player2 && theGUI.p2Attack) {
+                theGUI.Player2Movement();
+                theGUI.Player2Attack();
+            }
+        }
+        else {
+            // Display gui for player gamble
+            if (playerTurn == (int)Players.Player1 && theGUI.p1Gamble) {
+                theGUI.Player1Attack();
+                theGUI.Player1Gamble();
+            }
+            else if(playerTurn == (int)Players.Player2 && theGUI.p2Gamble){
+                theGUI.Player2Attack();
+                theGUI.Player2Gamble();
+            }
+        }
+
         if(playerTurn == 1)
         {
             if (Input.GetKeyDown(KeyCode.LeftAlt) && cameraToggle == false)
@@ -182,6 +218,7 @@ public class ObjectClicker : MonoBehaviour {
         {
             if(round == 1)
             {
+
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 100.0f))
@@ -318,7 +355,8 @@ public class ObjectClicker : MonoBehaviour {
             }
             else if(round == 3)
             {
-                if(gamblePressed)
+
+                if (gamblePressed)
                 {
                     gamblePressed = false;
                     round = 1;
