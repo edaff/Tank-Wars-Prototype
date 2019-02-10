@@ -25,6 +25,7 @@ public class ObjectClicker : MonoBehaviour {
     public string endGameText = "";
     public bool inWater1;
     public bool inWater2;
+    AudioSource cannonFire;
 
     //the object that will become playerGUI
     PlayerGUI theGUI;
@@ -57,6 +58,7 @@ public class ObjectClicker : MonoBehaviour {
         round = 1;
 
         theGUI = FindObjectOfType<PlayerGUI>();
+        cannonFire = GameObject.Find("Tank Variant").GetComponent<AudioSource>();
     }
 
     public void GambleButton()
@@ -336,8 +338,9 @@ public class ObjectClicker : MonoBehaviour {
                             if(tankClicked != null && tankClicked2 != null)
                             {
                                 resetColors();
+                                cannonFire.Play();
 
-                                if(grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int) tankClicked2.transform.position.z))
+                                if (grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int) tankClicked2.transform.position.z))
                                 {
                                     print("Good attack");
                                 }
