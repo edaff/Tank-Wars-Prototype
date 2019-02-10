@@ -26,6 +26,9 @@ public class ObjectClicker : MonoBehaviour {
     public bool inWater1;
     public bool inWater2;
 
+    //the object that will become playerGUI
+    PlayerGUI theGUI;
+
     private void Start(){
       terrainMapOne = new int[,]
         {
@@ -52,6 +55,8 @@ public class ObjectClicker : MonoBehaviour {
 
         playerTurn = 1;
         round = 1;
+
+        theGUI = FindObjectOfType<PlayerGUI>();
     }
 
     public void GambleButton()
@@ -62,6 +67,7 @@ public class ObjectClicker : MonoBehaviour {
             string powerUp = grid.gamble(playerTurn);
             Debug.Log(powerUp);
         }
+        
     }
 
     public void NoGambleButton()
