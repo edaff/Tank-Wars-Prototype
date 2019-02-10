@@ -123,3 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   bulletHalfLife: 3
+  shootSound: {fileID: 8300000, guid: ae2dabfae6117e04fb8983ea3f7ff877, type: 3}

@@ -9,17 +9,17 @@ public class PlayerGUI : MonoBehaviour
     [SerializeField] GameObject p1MovementMenu;
     [SerializeField] GameObject p1AttackMenu;
     [SerializeField] GameObject p1GambleMenu;
-    bool p1Move = true;
-    bool p1Attack = true;
-    bool p1Gamble = true;
+    public bool p1Move = true;
+    public bool p1Attack = true;
+    public bool p1Gamble = true;
 
     [Header("Player 2 GUI variable")]
     [SerializeField] GameObject p2MovementMenu;
     [SerializeField] GameObject p2AttackMenu;
     [SerializeField] GameObject p2GambleMenu;
-    bool p2Move = true;
-    bool p2Attack = true;
-    bool p2Gamble = true;
+    public bool p2Move = true;
+    public bool p2Attack = true;
+    public bool p2Gamble = true;
     
 
     void Start()
@@ -35,32 +35,32 @@ public class PlayerGUI : MonoBehaviour
          */
 
 
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             Player1Movement();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Player1Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             Player1Gamble();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad4))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             Player2Movement();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad5))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             Player2Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad6))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             Player2Gamble();
         }

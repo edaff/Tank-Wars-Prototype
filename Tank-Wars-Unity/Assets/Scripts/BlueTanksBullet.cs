@@ -5,18 +5,24 @@ using UnityEngine;
 public class BlueTanksBullet : MonoBehaviour
 {
     [SerializeField] float bulletSpeed = 2f;
-
     [SerializeField] float bulletHalfLife = 2f;
-
     static public float bulletDirection = -1f;
 
+    public AudioClip shootSound;
+    
+
     Vector3 MoveToPosZ = new Vector3(0f, 0f, bulletDirection);
+
+    void Start()
+    {
+       
+        PlayShootSound();
+    }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(MoveToPosZ * bulletSpeed * Time.deltaTime);
-
         Destroy(gameObject, bulletHalfLife);
 
     }
@@ -36,5 +42,11 @@ public class BlueTanksBullet : MonoBehaviour
             Destroy(gameObject);  //bullet will delete it self after it hits
         }
 
+    }
+
+    private void PlayShootSound()
+    {
+
+        AudioSource.PlayClipAtPoint(shootSound, gameObject.transform.position);
     }
 }

@@ -27,6 +27,10 @@ public class ObjectClicker : MonoBehaviour
     public string endGameText = "";
     public bool inWater1;
     public bool inWater2;
+    AudioSource cannonFire;
+
+    //the object that will become playerGUI
+    PlayerGUI theGUI;
 
     private void Start()
     {
@@ -55,6 +59,9 @@ public class ObjectClicker : MonoBehaviour
 
         playerTurn = 1;
         round = 1;
+
+        theGUI = FindObjectOfType<PlayerGUI>();
+        cannonFire = GameObject.Find("Tank Variant").GetComponent<AudioSource>();
     }
 
     public void GambleButton()
@@ -65,6 +72,7 @@ public class ObjectClicker : MonoBehaviour
             string powerUp = grid.gamble(playerTurn);
             Debug.Log(powerUp);
         }
+        
     }
 
     public void NoGambleButton()
@@ -87,6 +95,42 @@ public class ObjectClicker : MonoBehaviour
 
             // Goto Victory Screen
             SceneManager.LoadScene("GameOver");
+        }
+
+        if(round == 1) {
+            // Display GUI for Player Movement
+            if (playerTurn == (int)Players.Player1 && theGUI.p1Move) {
+                if (!theGUI.p2Gamble) {
+                    theGUI.Player2Gamble();
+                }
+                theGUI.Player1Movement();
+            }
+            else if(playerTurn == (int)Players.Player2 && theGUI.p2Move){
+                theGUI.Player1Gamble();
+                theGUI.Player2Movement();
+            }
+        }
+        else if(round == 2) {
+            // Display GUI for player attack
+            if (playerTurn == (int)Players.Player1 && theGUI.p1Attack) {
+                theGUI.Player1Movement();
+                theGUI.Player1Attack();
+            }
+            else if(playerTurn == (int)Players.Player2 && theGUI.p2Attack) {
+                theGUI.Player2Movement();
+                theGUI.Player2Attack();
+            }
+        }
+        else {
+            // Display gui for player gamble
+            if (playerTurn == (int)Players.Player1 && theGUI.p1Gamble) {
+                theGUI.Player1Attack();
+                theGUI.Player1Gamble();
+            }
+            else if(playerTurn == (int)Players.Player2 && theGUI.p2Gamble){
+                theGUI.Player2Attack();
+                theGUI.Player2Gamble();
+            }
         }
 
         // Press R to reset camera position
@@ -154,6 +198,7 @@ public class ObjectClicker : MonoBehaviour
         {
             if (round == 1)
             {
+
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 100.0f))
@@ -249,23 +294,33 @@ public class ObjectClicker : MonoBehaviour
                             {
                                 resetColors();
 
-                                tankClicked = hit.transform.gameObject;
-
-                                highlightValidAttackTiles((int)Players.Player1);
+                                if (playerTurn == (int)Players.Player1) {
+                                    tankClicked = hit.transform.gameObject;
+                                    highlightValidAttackTiles((int)Players.Player1);
+                                }
+                                else {
+                                    tankClicked2 = hit.transform.gameObject;
+                                }
+                                
                             }
                             else if (hit.transform.gameObject.tag == "Blue Tank")
                             {
                                 resetColors();
 
-                                tankClicked2 = hit.transform.gameObject;
-
-                                highlightValidAttackTiles((int)Players.Player2);
+                                if (playerTurn == (int)Players.Player2) {
+                                    tankClicked = hit.transform.gameObject;
+                                    highlightValidAttackTiles((int)Players.Player2);
+                                }
+                                else {
+                                    tankClicked2 = hit.transform.gameObject;
+                                }
                             }
                             if (tankClicked != null && tankClicked2 != null)
                             {
                                 resetColors();
+                                cannonFire.Play();
 
-                                if (grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int)tankClicked2.transform.position.z))
+                                if (grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int) tankClicked2.transform.position.z))
                                 {
                                     print("Good attack");
                                 }
