@@ -236,12 +236,12 @@ public class Grid : MonoBehaviour
 
         if (validAttack) {
             if (player == (int)Players.Player1) {
-                Debug.Log("Player 1 hits Player 2 for " + player1Attack + " damage! Player 2 health is now at " + player2Health);
+                Debug.Log("Player 1 hits Player 2 for " + player1Attack + " damage! Player 2 health is now at " + (player2Health - player1Attack));
 
                 player2Health -= player1Attack;
             }
             else if (player == (int)Players.Player2) {
-                Debug.Log("Player 2 hits Player 1 for " + player2Attack + " damage! Player 1 health is now at: " + player1Health);
+                Debug.Log("Player 2 hits Player 1 for " + player2Attack + " damage! Player 1 health is now at: " + (player1Health - player2Attack));
 
                 player1Health -= player2Attack;
             }
@@ -258,6 +258,8 @@ public class Grid : MonoBehaviour
             return true;
         }
         else {
+            updatePowerupState(player);
+
             return false;
         }
     }

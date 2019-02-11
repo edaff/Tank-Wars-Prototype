@@ -9,6 +9,8 @@ TagManager:
   - Red Tank
   - Blue Tank
   - VictoryMessage
+  - P1Powerup
+  - P2Powerup
   layers:
   - Default
   - TransparentFX

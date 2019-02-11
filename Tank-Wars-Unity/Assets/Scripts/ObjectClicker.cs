@@ -97,6 +97,19 @@ public class ObjectClicker : MonoBehaviour
             SceneManager.LoadScene("GameOver");
         }
 
+        if(grid.getPlayerAttack((int)Players.Player1) > 2 && theGUI.p1Powerup) {
+            theGUI.Player1Powerup();
+        }
+        else if (grid.getPlayerAttack((int)Players.Player1) <= 2 && !theGUI.p1Powerup) {
+            theGUI.Player1Powerup();
+        }
+        else if(grid.getPlayerAttack((int)Players.Player2) > 2 && theGUI.p2Powerup) {
+            theGUI.Player2Powerup();
+        }
+        else if (grid.getPlayerAttack((int)Players.Player2) <= 2 && !theGUI.p2Powerup) {
+            theGUI.Player2Powerup();
+        }
+
         if(round == 1) {
             // Display GUI for Player Movement
             if (playerTurn == (int)Players.Player1 && theGUI.p1Move) {
@@ -269,6 +282,8 @@ public class ObjectClicker : MonoBehaviour
                                     }
                                     tileClicked = null;
                                     tankClicked = null;
+                                    inWater1 = false;
+                                    inWater2 = false;
                                     round++;
                                     //print(grid.getPlayerHealth(1) + " " + grid.getPlayerHealth(2));
                                 }
@@ -443,7 +458,7 @@ public class ObjectClicker : MonoBehaviour
 
     public void highlightValidAttackTiles(int player)
     {
-        ArrayList attacks = grid.getAllValidMovementTiles(player);
+        ArrayList attacks = grid.getAllValidAttackTiles(player);
         object[] arrayOfTiles = GameObject.FindGameObjectsWithTag("Tile");
         Material attackMat = Resources.Load("Materials/AttackHighlight", typeof(Material)) as Material;
         Material playerMat;

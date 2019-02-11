@@ -9,22 +9,29 @@ public class PlayerGUI : MonoBehaviour
     [SerializeField] GameObject p1MovementMenu;
     [SerializeField] GameObject p1AttackMenu;
     [SerializeField] GameObject p1GambleMenu;
+    [SerializeField] GameObject p1PowerupMenu;
     public bool p1Move = true;
     public bool p1Attack = true;
     public bool p1Gamble = true;
+    public bool p1Powerup = true;
 
     [Header("Player 2 GUI variable")]
     [SerializeField] GameObject p2MovementMenu;
     [SerializeField] GameObject p2AttackMenu;
     [SerializeField] GameObject p2GambleMenu;
+    [SerializeField] GameObject p2PowerupMenu;
     public bool p2Move = true;
     public bool p2Attack = true;
     public bool p2Gamble = true;
+    public bool p2Powerup = true;
     
 
     void Start()
     {
-       
+        p1PowerupMenu = GameObject.FindGameObjectWithTag("P1Powerup");
+        p1PowerupMenu.SetActive(false);
+        p2PowerupMenu = GameObject.FindGameObjectWithTag("P2Powerup");
+        p2PowerupMenu.SetActive(false);
     }
 
     void Update()
@@ -118,6 +125,17 @@ public class PlayerGUI : MonoBehaviour
         }
     }
 
+    public void Player1Powerup() {
+        if (p1Powerup == true) {
+            p1PowerupMenu.SetActive(p1Powerup);
+            p1Powerup = false;
+        }
+        else {
+            p1PowerupMenu.SetActive(p1Powerup);
+            p1Powerup = true;
+        }
+    }
+
     /*
      * 
      * PLAYER 2 FUNCTIONS BELOW
@@ -167,6 +185,17 @@ public class PlayerGUI : MonoBehaviour
         {
             p2GambleMenu.SetActive(p2Gamble);
             p2Gamble = true;
+        }
+    }
+
+    public void Player2Powerup() {
+        if (p2Powerup == true) {
+            p2PowerupMenu.SetActive(p2Powerup);
+            p2Powerup = false;
+        }
+        else {
+            p2PowerupMenu.SetActive(p2Powerup);
+            p2Powerup = true;
         }
     }
 
