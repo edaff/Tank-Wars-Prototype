@@ -105,7 +105,7 @@ public class Grid : MonoBehaviour
                 player1Health = 0;
             }
             else{
-                player1Health = 0;
+                player2Health = 0;
             }
         }
 
