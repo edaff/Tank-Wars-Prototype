@@ -7,6 +7,7 @@ public class HpTrack : MonoBehaviour
 {
     [SerializeField] int players1Hp = 1;
     [SerializeField] int players2Hp = 1;
+    bool reset = false;
 
     int currentSceneIndex;
 
@@ -26,6 +27,17 @@ public class HpTrack : MonoBehaviour
         {
             players1Hp = playerHp.getObjectClickerGrid().getPlayerHealth(1);
             players2Hp = playerHp.getObjectClickerGrid().getPlayerHealth(2);
+        }
+
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if(currentSceneIndex == 0) {
+            reset = true;
+        }
+
+        if(currentSceneIndex == 1 && reset) {
+            reset = false;
+            Destroy(playerHp);
+            playerHp = FindObjectOfType<ObjectClicker>();
         }
     }
 
