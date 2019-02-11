@@ -4,12 +4,21 @@
 
 **Citation information is held inside a text document in each folder with assets**
 
+**Platform Information**: Developed for Windows 10 64-bit machines. Built with Unity **2018.3.3f1**
+
 **Game Information**
 - **Player 1**: Red Tank
 - **Player 2**: Blue Tank
 - **Turn Order**: Move - Attack - Gamble
 - Player 1 goes first
 - Both Players start with 5 HP and 2 Attack. Gambling gives you a **~1/5** chance at **+1** attack for **1** turn.
+
+**Environment Information**
+- **Desert (Tan)** - Regular movement
+- **Forest (Green)** - Regular movement (will be different in final game)
+- **Lava (Red)** - Instant death if landed on
+- **Water (Blue)** - Takes 1 damage if landed on
+- **Mountains (Gray)** - Cannot be moved through or shot through
 
 **How to Play**
 1. **Move** - Click your tank, then click one of the valid highlighted tiles to move to it
@@ -21,5 +30,6 @@
 **Controls**
 - **Left-Click** - Select a Tank or Tile
 - **Right-Click** - Skip the current part of your turn (i.e. Move, Attack, or Gamble)
-- **C** - Free the camera. This will allow you to move the camera around the map. Press it again to lock it. 
+- **C** - Free the camera. This will allow you to move the camera around the map. Press it again to lock it.
+- **Escape** - Open in-game menu
 
