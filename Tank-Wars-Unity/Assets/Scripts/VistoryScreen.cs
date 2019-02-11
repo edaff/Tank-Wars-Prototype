@@ -34,11 +34,11 @@ public class VistoryScreen : MonoBehaviour
         //Debug.Log("players 1 hp is " + player1Hp);
         //Debug.Log("players 2 hp is " + player2Hp);
 
-        if (player1Hp == 0)
+        if (player1Hp <= 0)
         {
             player2Wins.SetActive(true);
         }
-        else if(player2Hp == 0)
+        else if(player2Hp <= 0)
         {
             player1Wins.SetActive(true);
         }
