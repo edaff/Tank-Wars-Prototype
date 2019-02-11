@@ -28,6 +28,8 @@ public class ObjectClicker : MonoBehaviour
     public bool inWater1;
     public bool inWater2;
     AudioSource cannonFire;
+    BlueShooter blueFire;
+    RedShooter redFire;
 
     //the object that will become playerGUI
     PlayerGUI theGUI;
@@ -61,6 +63,8 @@ public class ObjectClicker : MonoBehaviour
         round = 1;
 
         theGUI = FindObjectOfType<PlayerGUI>();
+        redFire = FindObjectOfType<RedShooter>();
+        blueFire = FindObjectOfType<BlueShooter>();
         cannonFire = GameObject.Find("Tank Variant").GetComponent<AudioSource>();
     }
 
@@ -334,6 +338,19 @@ public class ObjectClicker : MonoBehaviour
                             {
                                 resetColors();
                                 cannonFire.Play();
+
+                                //TEST DELETE AFTER******************
+                                if(playerTurn == 1)
+                                {
+                                    redFire.Fire();
+                                    //shoot red bullet
+                                }
+                                if(playerTurn == 2)
+                                {
+                                    blueFire.Fire();
+                                    //shoot blue bullet
+                                }
+                                //TEST DELETE AFTER******************
 
                                 if (grid.canAttack(playerTurn, (int)tankClicked2.transform.position.x, (int) tankClicked2.transform.position.z))
                                 {
