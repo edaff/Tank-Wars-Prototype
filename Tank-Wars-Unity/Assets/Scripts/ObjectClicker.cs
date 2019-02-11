@@ -168,13 +168,13 @@ public class ObjectClicker : MonoBehaviour
         }
 
         // Press 2 to turn on/off center map camera 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && worldCamToggle == false && tankCamToggle == false && freeCamToggle == false)
+        if (Input.GetKeyDown(KeyCode.C) && worldCamToggle == false && tankCamToggle == false && freeCamToggle == false)
         {
             worldCamToggle = true;
             resetCamera();
             transform.LookAt(MapTarget.position, MapTarget.up);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && worldCamToggle == true)
+        else if (Input.GetKeyDown(KeyCode.C) && worldCamToggle == true)
         {
             worldCamToggle = false;
         }
